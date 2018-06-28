@@ -1,0 +1,20 @@
+sonata_admin:
+    title: 'Sonata Admin'
+    dashboard:
+        blocks:
+            - { type: sonata.admin.block.admin_list, position: left }
+
+sonata_block:
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+
+# Admins
+
+services:
+    admin.event:
+        class: App\Admin\EventAdmin
+        arguments: [~, App\Entity\Event, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Event }
+        public: true

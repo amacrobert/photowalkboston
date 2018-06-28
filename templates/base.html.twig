@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Photo Walk Wednesdays</title>
+
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/scrolling-nav.css" rel="stylesheet">
+
+    </head>
+
+    <body id="page-top">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">Photo Walk Wednesdays</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="#events">Upcoming Events</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="#contact">Join</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <header class="bg-primary text-white">
+            <div class="container text-center">
+                <h1>Photo Walk Wednesdays</h1>
+                <p class="lead">A creative meetup in Boston for photographers and models</p>
+                <p class="lead"><a href="https://www.instagram.com/explore/tags/photowalkwednesdays/" style="color:white; text-decoration: underline;" target="_blank">#PhotoWalkWednesdays</a></p>
+            </div>
+        </header>
+
+        <section id="events">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h2>Upcoming Photo Walks</h2>
+                        <p>
+                            Photo Walks are scheduled every other Wednesday night, each at a different location around Boston. Everyone meets at the starting location, then walks along a designated route stopping for photos along the way.
+                        </p>
+                        {% for event in events %}
+                            <div class="event" style="padding: 10px; box-shadow: 0 0 10px rgba(0,0,0,.1); margin: ">
+                                <h2>{{event.title}}</h2>
+                                <p class="lead">{{event.description}}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h2>About</h2>
+                        <p class="lead">Photo Walk Wednesdays (PWW) is a free creative bi-weekly photography meetup.</p>
+                        <p>PWW was created by Boston photographers Alex Iby and Munish Gandevia as an outlet for photographers and models to practice, experiment, and develop in a zero-pressure environment.</p>
+                        <p>Photographers and models of all skill levels are welcome to participate.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h2>Contact us</h2>
+                        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa exercitationem, in, quo totam.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-5 bg-dark">
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; <a href="http://andrewmacrobert.com" style="color:white; text-decoration: underline;" target="_blank">Andrew MacRobert</a> 2017</p>
+            </div>
+            <!-- /.container -->
+        </footer>
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Plugin JavaScript -->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom JavaScript for this theme -->
+        <script src="js/scrolling-nav.js"></script>
+
+    </body>
+
+</html>
