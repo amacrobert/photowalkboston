@@ -32,6 +32,7 @@ class DefaultController extends Controller {
         return $this->render('index.html.twig', [
             'events' => $events,
             'now' => new \DateTime,
+            'host' => $_SERVER['HTTP_HOST'],
         ]);
     }
 

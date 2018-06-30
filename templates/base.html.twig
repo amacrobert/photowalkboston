@@ -7,12 +7,23 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Photo Walk Wednesdays</title>
+        <title>
+            {% block title %}
+                Photo Walk Wednesdays
+            {% endblock %}
+        </title>
 
         <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="css/scrolling-nav.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+
+        {% block open_graph %}
+            <meta property="og:title" content="Photo Walk Wednesdays" />
+            <meta property="og:description" content="A free creative meetup in Boston for photographers and models" />
+            <meta property="og:url" content="http://{{host}}" />
+            <meta property="og:image" content="http://{{host}}/images/hero-banner.jpg" />
+        {% endblock %}
     </head>
 
     <body id="page-top">
