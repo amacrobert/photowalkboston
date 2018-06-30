@@ -20,7 +20,7 @@
                     </p>
                     {% for event in events %}
                         <div class="event-card" href="/events/{{event.id}}">
-                            <div class="event-card--top" style="background-image: url('{{ event.bannerImage.filename }}');">
+                            <div class="event-card--top" style="background-image: url('{{ event.bannerImageUrl }}');">
                                 <div class="event-card--top--inner">
                                     <div class="event-card--date">
                                         <div class="event-card--date--month">

@@ -39,6 +39,10 @@ class Event implements JsonSerializable {
         return $this->getTitle() ?: 'New Event';
     }
 
+    public function getBannerImageUrl(): ?string {
+        return $this->getBannerImage() ? $this->getBannerImage()->getFilename() : '';
+    }
+
     public function getBannerImage(): ?Image {
         return $this->banner_image;
     }
