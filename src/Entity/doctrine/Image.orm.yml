@@ -1,0 +1,14 @@
+App\Entity\Image:
+
+    type: entity
+    table: image
+
+    id: { id: { type: integer, unsigned: true, generator: { strategy: auto } } }
+
+    fields:
+        filename:   { type: string }
+        updated:    { type: datetime }
+
+    lifecycleCallbacks:
+        prePersist: [ lifecycleFileUpload ]
+        preUpdate:  [ lifecycleFileUpload ]

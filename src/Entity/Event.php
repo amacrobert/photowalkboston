@@ -12,8 +12,12 @@ class Event implements JsonSerializable {
     protected $date;
     protected $description;
     protected $meeting_location;
+    protected $parking;
     protected $model_theme;
     protected $photographer_challenge;
+    protected $eventbrite_link;
+    protected $facebook_link;
+    protected $banner_image;
 
     public function jsonSerialize() {
         return [
@@ -21,8 +25,13 @@ class Event implements JsonSerializable {
             'date' => $this->getDate(),
             'description' => $this->getDescription(),
             'meeting_location' => $this->getMeetingLocation(),
+            'parking' => $this->getParking(),
             'model_theme' => $this->getModelTheme(),
             'photographer_challenge' => $this->getPhotographerChallenge(),
+            'links' => [
+                'facebook' => $this->getFacebookLink(),
+                'eventbrite' => $this->getEventBriteLink(),
+            ]
         ];
     }
 
@@ -30,8 +39,44 @@ class Event implements JsonSerializable {
         return $this->getTitle() ?: 'New Event';
     }
 
+    public function getBannerImage(): ?Image {
+        return $this->banner_image;
+    }
+
+    public function setBannerImage(?Image $banner_image): Event {
+        $this->banner_image = $banner_image;
+        return $this;
+    }
+
+    public function getParking(): ?string {
+        return $this->parking;
+    }
+
+    public function setParking(?string $parking): Event {
+        $this->parking = $parking;
+        return $this;
+    }
+
     public function getId(): ?int {
         return $this->id;
+    }
+
+    public function getEventBriteLink(): ?string {
+        return $this->eventbrite_link;
+    }
+
+    public function setEventBriteLink(?string $link): Event {
+        $this->eventbrite_link = $link;
+        return $this;
+    }
+
+    public function getFacebookLink(): ?string {
+        return $this->facebook_link;
+    }
+
+    public function setFacebookLink(?string $link): Event {
+        $this->facebook_link = $link;
+        return $this;
     }
 
     public function getModelTheme(): ?string {
