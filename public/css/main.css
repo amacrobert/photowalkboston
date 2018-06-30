@@ -39,16 +39,25 @@
 }
 
 .event-card--date {
-    float: left;
     background-color: white;
     color: #333;
     padding: 10px 20px;
-    margin-right: 40px;
     text-align: center;
     line-height: 28px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+    margin: 0 auto;
+    width: 120px;
 }
+
+@media (min-width: 576px) {
+    .event-card--date {
+        float: left;
+        margin-right: 40px;
+        width: inherit;
+    }
+}
+
 
 .event-card--date--month {
     text-align: center;
@@ -65,9 +74,18 @@
 }
 
 .event-card--top--title {
-    float: left;
-    max-width: 305px;
+    text-align: center;
+    margin-top: 20px;
 }
+
+@media (min-width: 576px) {
+    .event-card--top--title {
+        float: left;
+        max-width: 305px;
+        margin-top: inherit;
+    }
+}
+
 
 .event-card--details-button {
     margin: 0 auto;
