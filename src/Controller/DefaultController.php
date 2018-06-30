@@ -16,10 +16,22 @@ class DefaultController extends Controller {
      */
     public function index(EntityManagerInterface $em) {
 
-        $events = $em->getRepository(Event::class)->findAll();
+        $dql = "
+            SELECT event
+            FROM App\Entity\Event event
+            WHERE event.date > :cutoff
+            ORDER BY event.date
+        ";
 
-        return $this->render('base.html.twig', [
+        $query = $em
+            ->createQuery($dql)
+            ->setParameters(['cutoff' => new \DateTime('3 hours ago')])
+            ->setMaxResults(3);
+        $events = $query->getResult();
+
+        return $this->render('index.html.twig', [
             'events' => $events,
+            'now' => new \DateTime,
         ]);
     }
 

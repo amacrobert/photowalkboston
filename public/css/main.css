@@ -1,0 +1,96 @@
+.header--title,
+.hero--title {
+    font-family: 'Lobster', cursive;
+}
+
+.hero {
+    background-image: url('/images/hero-banner.jpg');
+    background-size: cover;
+    background-position: center center;
+    padding: 0;
+    margin: 56px 0 0 0;
+    color: white;
+    text-align: center;
+}
+
+.hero--inner {
+    background-color: rgba(0, 0, 0, .5);
+    padding: 154px 0 100px;
+    width: 100%;
+}
+
+.event-card {
+    display: block;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+    margin: 20px 0;
+}
+
+.event-card--top {
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+}
+
+.event-card--top--inner {
+    background-color: rgba(0, 0, 0, .5);
+    color: white;
+    padding: 40px;
+    min-height: 400px;
+}
+
+.event-card--date {
+    float: left;
+    background-color: white;
+    color: #333;
+    padding: 10px 20px;
+    margin-right: 40px;
+    text-align: center;
+    line-height: 28px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+}
+
+.event-card--date--month {
+    text-align: center;
+}
+
+.event-card--date--day {
+    text-align: center;
+    font-size: 40px;
+}
+
+.event-card--date--year {
+    text-align: center;
+    font-size: 12px;
+}
+
+.event-card--top--title {
+    float: left;
+    max-width: 305px;
+}
+
+.event-card--details-button {
+    margin: 0 auto;
+    display: block;
+    width: 250px;
+    max-width: calc(100% - 80px);
+    text-align: center;
+    background: white;
+    padding: 12px;
+    color: black;
+}
+
+.event-card--details-button:hover,
+.event-card--details-button:focus,
+.event-card--details-button:active {
+    text-decoration: none;
+    color: black;
+    background-color: #eee;
+}
+
+.event-card--bottom {
+    padding: 20px;
+    background-color: #111;
+    color: #ddd;
+}
+
