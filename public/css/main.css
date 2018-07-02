@@ -112,3 +112,17 @@
     color: #ddd;
 }
 
+/* event page */
+
+.event-page--banner {
+    margin-top: 56px;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+}
+
+.event-page--title {
+    font-family: 'Lobster', cursive;
+    text-align: center;
+    margin: 40px 0;
+}
