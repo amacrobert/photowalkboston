@@ -6,7 +6,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\AdminType;
 use Sonata\AdminBundle\Datagrid\{ListMapper, DatagridMapper};
-use Symfony\Component\Form\Extension\Core\Type\{TextType, FileType};
+use Symfony\Component\Form\Extension\Core\Type\{TextType, FileType, UrlType};
 use DateTime;
 
 class EventAdmin extends AbstractAdmin {
@@ -56,7 +56,18 @@ class EventAdmin extends AbstractAdmin {
             ->end()
 
             ->with('Details', ['class' => 'col-md-6'])
-                ->add('meeting_location', null, ['help' => 'The exact meeting address. This should be readable by Google Maps.'])
+                ->add('meeting_location', null, [
+                    'help' => 'The exact meeting address. This should be readable by Google Maps.',
+                    'required' => true,
+                ])
+                ->add('facebook_link', UrlType::class, [
+                    'help' => 'Link to the Facebook event, if applicable',
+                    'required' => false,
+                ])
+                ->add('eventbrite_link', UrlType::class, [
+                    'help' => 'Link to the EventBrite page, is applicable',
+                    'required' => false,
+                ])
                 ->add('parking', null, [
                     'label' => 'Parking Instructions',
                     'help' => 'If desired, describe where to park'

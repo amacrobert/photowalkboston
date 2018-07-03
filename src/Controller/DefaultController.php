@@ -20,7 +20,7 @@ class DefaultController extends Controller {
             SELECT event
             FROM App\Entity\Event event
             WHERE event.date > :cutoff
-            ORDER BY event.date
+            ORDER BY event.date ASC
         ";
 
         $query = $em
