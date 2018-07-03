@@ -115,10 +115,16 @@
 /* event page */
 
 .event-page--banner {
+    height: 220px;
     margin-top: 56px;
-    height: 400px;
     background-size: cover;
     background-position: center;
+}
+
+@media (min-width: 576px) {
+    .event-page--banner {
+        height: 400px;
+    }
 }
 
 .event-page--title {
