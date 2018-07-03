@@ -124,7 +124,7 @@
 .event-page--title {
     font-family: 'Lobster', cursive;
     text-align: center;
-    margin: 0 0 40px;
+    margin: 5px 0;
 }
 
 .event-page--subtitle {
@@ -132,6 +132,14 @@
     font-weight: normal;
     font-size: 18px;
     margin: 40px 0 5px;
+}
+
+.event-page--title-date {
+    text-align: center;
+    font-weight: normal;
+    font-size: 15px;
+    margin: 12px 0 40px;
+    color: #444;
 }
 
 dd {
