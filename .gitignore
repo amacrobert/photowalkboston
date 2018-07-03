@@ -5,4 +5,6 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+/public/images/uploads/*
+!/public/images/uploads/.gitkeep
 *.DS_Store

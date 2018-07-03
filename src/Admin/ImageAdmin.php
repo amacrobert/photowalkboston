@@ -36,12 +36,12 @@ class ImageAdmin extends AbstractAdmin {
 
         // Move image to image dir
         $image->getFile()->move(
-            './images/',
+            './images/uploads/',
             $image->getFile()->getClientOriginalName()
         );
 
         // set the path property to the filename where you've saved the file
-        $image->setFilename('/images/' . $image->getFile()->getClientOriginalName());
+        $image->setFilename('/images/uploads/' . $image->getFile()->getClientOriginalName());
     }
 
     public function getTemplate($name) {

@@ -47,8 +47,9 @@ class EventAdmin extends AbstractAdmin {
                         <p>The image to be used as the banner for the event. It should either showcase the location or the model theme, and could be an image from a previous photo walk at this location or something else.</p>
                         <p>
                             <ul>
-                                <li>LANDSCAPE ORIENTATION</li>
-                                <li>ASPECT RATIO 3:2</li>
+                                <li>Landscape orientation</li>
+                                <li>Aspect ratio roughly 3:2</li>
+                                <li>File size < 600KB</li>
                             </ul>
                         </p>'
                 ])
@@ -79,7 +80,10 @@ class EventAdmin extends AbstractAdmin {
         $listMapper
             ->addIdentifier('title')
             ->add('date')
-            ->add('banner_image.filename')
+            ->add('banner_image.filename', 'string', [
+                'label' => 'Banner',
+                'template' => 'list_image.html.twig'
+            ])
         ;
     }
 }

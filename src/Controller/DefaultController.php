@@ -31,9 +31,29 @@ class DefaultController extends Controller {
 
         return $this->render('index.html.twig', [
             'events' => $events,
-            'now' => new \DateTime,
-            'host' => $_SERVER['HTTP_HOST'],
         ]);
+    }
+
+    /**
+     * @Route("/events/{event_id}", name="event")
+     */
+    public function event($event_id, EntityManagerInterface $em) {
+
+        $event = $em->find(Event::class, $event_id);
+
+        return $this->render('event.html.twig', [
+            'event' => $event,
+        ]);
+    }
+
+    protected function render(
+        string $view,
+        array $parameters = array(),
+        Response $response = null): Response
+    {
+        $parameters['host'] = $_SERVER['HTTP_HOST'];
+        $parameters['now'] = new \DateTime;
+        return parent::render($view, $parameters);
     }
 
 }

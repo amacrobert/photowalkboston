@@ -124,5 +124,20 @@
 .event-page--title {
     font-family: 'Lobster', cursive;
     text-align: center;
-    margin: 40px 0;
+    margin: 0 0 40px;
+}
+
+.event-page--subtitle {
+    text-align: center;
+    font-weight: normal;
+    font-size: 18px;
+    margin: 40px 0 5px;
+}
+
+dd {
+    margin-bottom: 20px;
+}
+
+dt:after {
+    content: ':';
 }
