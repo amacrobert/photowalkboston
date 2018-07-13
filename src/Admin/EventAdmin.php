@@ -36,6 +36,9 @@ class EventAdmin extends AbstractAdmin {
                 ->add('title', null, [
                     'help' => 'The title of the event, such as "Flowy Primes at Castle Island". This should have the name of the location and reference (even a cryptic one) to any theme or challenge for the week.',
                 ])
+                ->add('password', null, [
+                    'help' => 'If set, the meeting location and Facebook link will be password-protected. Users will have to enter a password, or fill out a form requesting the password.',
+                ])
                 ->add('description', null, [
                     'help' => 'A colorful high-level description of the location, event, and themes, and type of shots that people can expect here. Keep it under 100 words.',
                     'attr' => ['style' => 'min-height: 130px']

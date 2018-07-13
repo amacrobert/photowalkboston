@@ -18,6 +18,7 @@ class Event implements JsonSerializable {
     protected $eventbrite_link;
     protected $facebook_link;
     protected $banner_image;
+    protected $password;
 
     public function jsonSerialize() {
         return [
@@ -37,6 +38,15 @@ class Event implements JsonSerializable {
 
     public function __toString() {
         return $this->getTitle() ?: 'New Event';
+    }
+
+    public function getPassword(): ?string {
+        return $this->password;
+    }
+
+    public function setPassword(?string $password): Event {
+        $this->password = $password;
+        return $this;
     }
 
     public function getBannerImageUrl(): ?string {

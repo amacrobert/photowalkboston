@@ -17,8 +17,26 @@
     </div>
 
     <div class="container">
+
         <div class="row">
             <div class="col-md-12">
+
+                {% if password_right %}
+                    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Access granted.</strong> You may now RSVP and view the meeting location and parking instructions. See you on Wednesday!
+                    </div>
+                {% elseif password_wrong %}
+                    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong>Password incorrect.</strong> Sorry, that is not the password for this event. See below for instructions on requesting access.
+                    </div>
+                {% endif %}
+
                 <h3 class="event-page--subtitle">Photo Walk Wednesdays:</h3>
                 <h1 class="event-page--title">{{event.title}}</h1>
                 <h3 class="event-page--title-date">{{event.date|date('l F jS, Y')}}</h3>
@@ -26,7 +44,15 @@
             </div>
         </div>
 
-        {% if event.facebookLink %}
+        {% if (event.facebookLink or event.eventbriteLink) and has_access == false %}
+            <div class="row mb-3">
+                <div class="col-md-6 offset-md-3 password-to-rsvp">
+                    Enter password below to get the RSVP link
+                </div>
+            </div>
+        {% endif %}
+
+        {% if event.facebookLink and has_access %}
             <div class="row mb-3">
                 <div class="col-md-6 offset-md-3">
                     <a class="btn btn-primary btn-lg btn-block" target="_blank" href="{{event.facebookLink}}">
@@ -36,7 +62,7 @@
             </div>
         {% endif %}
 
-        {% if event.eventbriteLink %}
+        {% if event.eventbriteLink and has_access %}
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     <a class="btn btn-primary btn-lg btn-block" target="_blank" href="{{event.eventbriteLink}}">
@@ -67,26 +93,75 @@
                         <dd>{{event.photographerChallenge}}
                     {% endif %}
 
-                    {% if event.parking %}
-                        <dt>Parking Instructions</dt>
-                        <dd>{{event.parking}}
-                    {% endif %}
-
                     <dt>About</dt>
-                    <dd>Photo Walk Wednesdays is a free bi-weekly meetup in Boston for photographers and models to practice their craft in a collaborative, zero-pressure environment. Photographers and models of all skill levels and experience are welcome.</dd>
+                    <dd>Photo Walk Wednesdays is a free bi-weekly meetup in Boston for photographers and models to practice their craft in a collaborative, zero-pressure environment.</dd>
                 </dl>
             </div>
 
             <div class="col-md-6">
-                {% if event.meetingLocation %}
-                    <dt>Meeting Location</dt>
-                    <dd>{{event.meetingLocation}}</dd>
-                    <iframe
-                        frameborder="0" style="border:0; width: 100%; height: 350px"
-                        src="https://www.google.com/maps/embed/v1/search?key=AIzaSyDzlJVE3Ow9be-h2MTbh01Zuj7KtBfW_ss&q={{event.meetingLocation|url_encode}}"
-                        allowfullscreen>
-                    </iframe>
+                {% if has_access == false %}
+                    <dl>
+                        <dt>Meeting Location & RSVP</dt>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12 password-protected">
+                                    <h5 class="password-protected--title">Password Required</h5>
+
+                                    <form method="post">
+                                        <div class="form-row align-items-center">
+                                            <div class="col-auto">
+                                                <input
+                                                    type="text"
+                                                    class="form-control mb-2"
+                                                    id="event_{{ event.id }}_pass"
+                                                    name="event_{{ event.id }}_pass"
+                                                    placeholder="Event Password" />
+                                            </div>
+                                            <div class="col-auto">
+                                                <button type="submit" class="btn btn-secondary mb-2">
+                                                    Submit
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <hr>
+
+                                    <div class="password-protected--instructions"
+                                    <p>To request the password for this event, email <a class="email-link" href="mailto:join@photowalkwednesdays.com">join@photowalkwednesdays.com</a> and include the following:</p>
+                                    <ul>
+                                        <li>Your full name</li>
+                                        <li>The name of the event you'd like to join</li>
+                                        <li>Do you want to photograph or model?</li>
+                                        <li>Links to your existing work or Instagram</li>
+                                    </ul>
+                                    <div class="password-protected--explanation">
+                                        <p>As much as we would like to welcome everyone, we need to screen new members to keep a balance of models and photographers and make sure you're a good fit. This ensures all attendees can make the most out of each photo walk.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </dl>
+                {% else %}
+                    <dl>
+                        {% if event.meetingLocation %}
+                            <dt>Meeting Location</dt>
+                            <dd>{{event.meetingLocation}}
+                                <iframe
+                                    frameborder="0" style="border:0; width: 100%; height: 350px"
+                                    src="https://www.google.com/maps/embed/v1/search?key=AIzaSyDzlJVE3Ow9be-h2MTbh01Zuj7KtBfW_ss&q={{event.meetingLocation|url_encode}}"
+                                    allowfullscreen>
+                                </iframe>
+                            </dd>
+                        {% endif %}
+
+                        {% if event.parking %}
+                            <dt>Parking Instructions</dt>
+                            <dd>{{event.parking}}</dd>
+                        {% endif %}
+                    </dl>
                 {% endif %}
+
             </div>
         </div>
 

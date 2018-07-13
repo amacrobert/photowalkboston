@@ -155,3 +155,32 @@ dd {
 dt:after {
     content: ':';
 }
+
+.password-protected {
+    padding: 30px;
+    background-color: #FFD160;
+    min-height: 300px;
+}
+
+.password-protected--title {
+}
+
+.password-protected--instructions {
+    font-size: .9em;
+}
+
+.password-protected--explanation {
+    font-size: .9em;
+    font-style: italic;
+}
+
+.email-link {
+    font-weight: bold;
+}
+
+.password-to-rsvp {
+    text-align: center;
+    color: #555;
+    font-style: italic;
+    font-size: .8em;
+}

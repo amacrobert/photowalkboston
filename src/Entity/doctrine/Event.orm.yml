@@ -15,6 +15,7 @@ App\Entity\Event:
         photographer_challenge: { type: text, nullable: true }
         eventbrite_link:        { type: string, nullable: true }
         facebook_link:          { type: string, nullable: true }
+        password:               { type: string, nullable: true }
 
     manyToOne:
         banner_image:           { targetEntity: App\Entity\Image }
