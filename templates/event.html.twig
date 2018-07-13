@@ -8,7 +8,7 @@
     <meta property="og:title" content="{{event.title}} {{event.date|date('M d')}} - Photo Walk Wednesdays" />
     <meta property="og:description" content="A free creative meetup in Boston for photographers and models" />
     <meta property="og:url" content="http://{{host}}/events/{{event.id}}" />
-    <meta property="og:image" content="http://{{host}}{{event.bannerImageUrl}}" />
+    <meta property="og:image" content="http://{{host}}{{event.bannerImageUrl|url_encode}}" />
 {% endblock %}
 
 {% block body %}
