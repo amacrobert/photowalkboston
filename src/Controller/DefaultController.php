@@ -42,10 +42,10 @@ class DefaultController extends Controller {
 
         $event = $em->find(Event::class, $event_id);
 
-        $password = $event->getPassword();
+        $password = strtolower($event->getPassword());
         $cookie_name = 'event_' . $event->getId() . '_pass';
         parse_str($request->getContent(), $post_vals);
-        $posted_pass = $post_vals[$cookie_name] ?? null;
+        $posted_pass = strtolower($post_vals[$cookie_name]) ?? null;
 
         $event_protected = (bool)$password;
         $cookie_matches_pass = $request->cookies->get($cookie_name) == $password;
