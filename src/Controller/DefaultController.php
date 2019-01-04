@@ -26,7 +26,7 @@ class DefaultController extends Controller {
 
         $query = $em
             ->createQuery($dql)
-            ->setParameters(['cutoff' => new \DateTime('3 hours ago')])
+            ->setParameters(['cutoff' => new \DateTime('24 hours ago')])
             ->setMaxResults(3);
         $events = $query->getResult();
 

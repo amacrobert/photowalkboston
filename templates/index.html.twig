@@ -47,6 +47,15 @@
                             </div>
                         </div>
                     {% endfor %}
+                    {% if events is empty %}
+                        <p class="lead">Currently, there are no <strong>publicly</strong> scheduled upcoming events.</p>
+                        <p>If you are interested in joining non-public upcoming events, send an email to <a href="mailto:join@photowalkwednesdays.com">join@photowalkwednesdays.com</a> and include the following information:</p>
+                        <ol>
+                            <li>Your full name</li>
+                            <li>Do you want to photograph or model?</li>
+                            <li>Links to your existing work or Instagram</li>
+                        </ol>
+                    {% endif %}
                 </div>
             </div>
         </div>
