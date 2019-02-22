@@ -45,11 +45,11 @@ class DefaultController extends Controller {
         $password = strtolower($event->getPassword());
         $cookie_name = 'event_' . $event->getId() . '_pass';
         parse_str($request->getContent(), $post_vals);
-        $posted_pass = strtolower($post_vals[$cookie_name]) ?? null;
+        $posted_pass = isset($post_vals[$cookie_name]) ? strtolower($post_vals[$cookie_name]) : null;
 
         $event_protected = (bool)$password;
         $cookie_matches_pass = $request->cookies->get($cookie_name) == $password;
-        $post_matches_pass = $posted_pass == $password;
+        $post_matches_pass = $posted_pass && $posted_pass == $password;
 
         $has_access = !$event_protected || $cookie_matches_pass || $post_matches_pass;
 

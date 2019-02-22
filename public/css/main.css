@@ -183,3 +183,19 @@ dt:after {
     font-style: italic;
     font-size: .8em;
 }
+
+.team-card .photo-byline {
+    margin: 0 auto;
+    text-transform: uppercase;
+    font-size: 8px;
+    color: #999;
+}
+
+.team-card .social-btn {
+    font-size: 18px;
+    margin: 0 3px;
+}
+
+.team-card .social-btn:hover {
+    text-decoration: none;
+}

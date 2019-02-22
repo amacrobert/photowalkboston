@@ -11,113 +11,20 @@
     </header>
 
     <section id="events">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <h2>Upcoming Photo Walks</h2>
-                    <p>
-                        Photo Walks are scheduled every other Wednesday night, each at a different location around Boston. Everyone meets at the starting location, then walks along a designated route stopping for photos along the way.
-                    </p>
-                    {% for event in events %}
-                        <div class="event-card">
-                            <div class="event-card--top" style="background-image: url('{{ event.bannerImageUrl }}');">
-                                <div class="event-card--top--inner">
-                                    <div class="event-card--date">
-                                        <div class="event-card--date--month">
-                                            {{event.date|date('M')}}
-                                        </div>
-                                        <div class="event-card--date--day">
-                                            {{event.date|date('d')}}
-                                        </div>
-                                        <div class="event-card--date--year">
-                                            {{event.date|date('Y')}}
-                                        </div>
-                                    </div>
-                                    <div class="event-card--top--title">
-                                        <h2>{{event.title}}</h2>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                            <div class="event-card--bottom">
-                                <p>{{event.description}}  </p>
-                                <a class="btn btn-info" href="/events/{{event.id}}" role="button">
-                                    View Details / RSVP
-                                </a>
-                            </div>
-                        </div>
-                    {% endfor %}
-                    {% if events is empty %}
-                        <p class="lead">Currently, there are no <strong>publicly</strong> scheduled upcoming events.</p>
-                        <p>If you are interested in joining non-public upcoming events, send an email to <a href="mailto:join@photowalkwednesdays.com">join@photowalkwednesdays.com</a> and include the following information:</p>
-                        <ol>
-                            <li>Your full name</li>
-                            <li>Do you want to photograph or model?</li>
-                            <li>Links to your existing work or Instagram</li>
-                        </ol>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
+        {% include 'partials/events.html.twig' %}
     </section>
 
-    <section id="about" class="bg-light">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <h2>About</h2>
-                    <p class="lead">Photo Walk Wednesdays (PWW) is a free creative bi-weekly photography meetup.</p>
-                    <p>PWW was created by Boston photographers Alex Iby and Munish Gandevia as an outlet for photographers and models to practice, experiment, and develop in a zero-pressure collaborative environment.</p>
-                    <p>Photographers and models of all skill levels are welcome to participate.</p>
-                    <hr>
-                    <p class="lead">
-                        Press:
-                        <a href="http://www.neighbormedia.org/news/photo-walk-brings-local-artists-together" target="_blank">Photo Walk Brings Local Artists Together <img src="/iconic/svg/external-link.svg" alt="external-link" style="width: 12px" /></a>
-                    </p>
-                </div>
-            </div>
-        </div>
+    <section id="featured" class="bg-light">
+        {% include 'partials/featured_photos.html.twig' %}
     </section>
 
-    <section id="featured">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <h2>Featured Photos</h2>
-                    <p class="lead">A selection of photos from recent Photo Walk Wednesdays.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-
-                    <!--div id="pixlee_container"></div><script type="text/javascript">window.PixleeAsyncInit = function() {Pixlee.init({apiKey:'rOUKY5t66hqhmjKRpaRG'});Pixlee.addSimpleWidget({widgetId:'6012'});};</script><script src="//instafeed.assets.pixlee.com/assets/pixlee_widget_1_0_0.js"></script-->
-
-                    <div class='embedsocial-instagram' data-ref="bddd9e25b131b49052faa324e35dc8a769abd23c"></div><script>(function(d, s, id){var js; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = "https://embedsocial.com/embedscript/in.js"; d.getElementsByTagName("head")[0].appendChild(js);}(document, "script", "EmbedSocialInstagramScript"));</script>
-                </div>
-            </div>
-        </div>
+    <section id="about">
+        {% include 'partials/about.html.twig' %}
     </section>
+
+    <section id="team" class="bg-light">
+        {% include 'partials/team.html.twig' %}
+    </section>
+
 {% endblock %}
 
-{% block nav %}
-    <a class="navbar-brand js-scroll-trigger header--title" href="#page-top">Photo Walk Wednesdays</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="#events">Upcoming Events</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="#about">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="#featured">Photos</a>
-            </li>
-        </ul>
-    </div>
-{% endblock %}
