@@ -44,7 +44,7 @@ class EventAdmin extends AbstractAdmin {
                     'attr' => ['style' => 'min-height: 130px']
                 ])
                 ->add('date', null, $date_options)
-                ->add('banner_image', 'Sonata\AdminBundle\Form\Type\ModelListType'/*AdminType::class*/, [
+                ->add('banner_image', 'Sonata\AdminBundle\Form\Type\ModelListType', [
                     'required' => false,
                     'help' => '
                         <p>The image to be used as the banner for the event. It should either showcase the location or the model theme, and could be an image from a previous photo walk at this location or something else.</p>
@@ -60,15 +60,20 @@ class EventAdmin extends AbstractAdmin {
 
             ->with('Details', ['class' => 'col-md-6'])
                 ->add('meeting_location', null, [
-                    'help' => 'The exact meeting address. This should be readable by Google Maps.',
+                    'help' => 'The exact meeting address. This should be readable by Google Maps, such as "123 Franklin St, Boston, MA 02110" or "Boston Common, Boston, MA',
                     'required' => true,
+                ])
+                ->add('meeting_instructions', null, [
+                    'help' => 'If further information is needed for the meeting location, provide instructions here (such as "meet by the George Washington statue")',
+                    'required' => false,
+                ])
+                ->add('google_form_link', UrlType::class, [
+                    'help' => 'Link to the Google Forms RSVP, if applicable.
+                        <p style="font-size:.8em">https://docs.google.com/forms/d/e/1FAIpQLSdLZPSZ9RGecz9Gnhrr3VJ17PGByKBIhRQ1x8_eLeruBOG01Q/viewform</p>',
+                    'required' => false,
                 ])
                 ->add('facebook_link', UrlType::class, [
                     'help' => 'Link to the Facebook event, if applicable',
-                    'required' => false,
-                ])
-                ->add('eventbrite_link', UrlType::class, [
-                    'help' => 'Link to the EventBrite page, is applicable',
                     'required' => false,
                 ])
                 ->add('parking', null, [

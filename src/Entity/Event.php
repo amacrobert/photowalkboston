@@ -12,10 +12,11 @@ class Event implements JsonSerializable {
     protected $date;
     protected $description;
     protected $meeting_location;
+    protected $meeting_instructions;
     protected $parking;
     protected $model_theme;
     protected $photographer_challenge;
-    protected $eventbrite_link;
+    protected $google_form_link;
     protected $facebook_link;
     protected $banner_image;
     protected $password;
@@ -26,18 +27,34 @@ class Event implements JsonSerializable {
             'date' => $this->getDate(),
             'description' => $this->getDescription(),
             'meeting_location' => $this->getMeetingLocation(),
+            'meeting_instructions' => $this->getMeetingInstructions(),
             'parking' => $this->getParking(),
             'model_theme' => $this->getModelTheme(),
             'photographer_challenge' => $this->getPhotographerChallenge(),
-            'links' => [
-                'facebook' => $this->getFacebookLink(),
-                'eventbrite' => $this->getEventBriteLink(),
-            ]
+            'facebook_link' => $this->getFacebookLink(),
         ];
     }
 
     public function __toString() {
         return $this->getTitle() ?: 'New Event';
+    }
+
+    public function getGoogleFormLink(): ?string {
+        return $this->google_form_link;
+    }
+
+    public function getGoogleFormLinkEmbedded(): ?string {
+        if (!($link = $this->getGoogleFormLink())) {
+            return null;
+        }
+
+        list($url) = explode('?', $link);
+        return $url .= '?embedded=true';
+    }
+
+    public function setGoogleFormLink(?string $google_form_link): Event {
+        $this->google_form_link = $google_form_link;
+        return $this;
     }
 
     public function getPassword(): ?string {
@@ -73,15 +90,6 @@ class Event implements JsonSerializable {
 
     public function getId(): ?int {
         return $this->id;
-    }
-
-    public function getEventBriteLink(): ?string {
-        return $this->eventbrite_link;
-    }
-
-    public function setEventBriteLink(?string $link): Event {
-        $this->eventbrite_link = $link;
-        return $this;
     }
 
     public function getFacebookLink(): ?string {
@@ -135,6 +143,15 @@ class Event implements JsonSerializable {
 
     public function setMeetingLocation(?string $meeting_location): Event {
         $this->meeting_location = $meeting_location;
+        return $this;
+    }
+
+    public function getMeetingInstructions(): ?string {
+        return $this->meeting_instructions;
+    }
+
+    public function setMeetingInstructions(?string $meeting_instructions): Event {
+        $this->meeting_instructions = $meeting_instructions;
         return $this;
     }
 

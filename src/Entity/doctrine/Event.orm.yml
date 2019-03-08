@@ -10,10 +10,11 @@ App\Entity\Event:
         date:                   { type: datetime }
         description:            { type: text, nullable: true }
         meeting_location:       { type: text, nullable: true }
+        meeting_instructions:   { type: text, nullable: true }
         parking:                { type: text, nullable: true }
         model_theme:            { type: text, nullable: true }
         photographer_challenge: { type: text, nullable: true }
-        eventbrite_link:        { type: string, nullable: true }
+        google_form_link:       { type: string, nullable: true }
         facebook_link:          { type: string, nullable: true }
         password:               { type: string, nullable: true }
 
