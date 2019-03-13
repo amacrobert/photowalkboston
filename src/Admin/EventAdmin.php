@@ -67,11 +67,6 @@ class EventAdmin extends AbstractAdmin {
                     'help' => 'If further information is needed for the meeting location, provide instructions here (such as "meet by the George Washington statue")',
                     'required' => false,
                 ])
-                ->add('google_form_link', UrlType::class, [
-                    'help' => 'Link to the Google Forms RSVP, if applicable.
-                        <p style="font-size:.8em">https://docs.google.com/forms/d/e/1FAIpQLSdLZPSZ9RGecz9Gnhrr3VJ17PGByKBIhRQ1x8_eLeruBOG01Q/viewform</p>',
-                    'required' => false,
-                ])
                 ->add('facebook_link', UrlType::class, [
                     'help' => 'Link to the Facebook event, if applicable',
                     'required' => false,

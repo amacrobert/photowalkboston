@@ -2,8 +2,8 @@
     <div class="row">
         <div class="col-lg-8 mx-auto">
             <h2>Upcoming Photo Walks</h2>
-            <p>
-                Photo Walks are scheduled every other Wednesday night, each at a different location around Boston. Everyone meets at the starting location, then walks along a designated route stopping for photos along the way.
+            <p class="small" style="font-style: italic">
+                Photo Walks are scheduled every other Wednesday night, each at a different location around Boston.
             </p>
             {% for event in events %}
                 <div class="event-card">
@@ -35,13 +35,10 @@
                 </div>
             {% endfor %}
             {% if events is empty %}
-                <p class="lead">Currently, there are no <strong>publicly</strong> scheduled upcoming events.</p>
-                <p>If you are interested in joining non-public upcoming events, send an email to <a href="mailto:join@photowalkwednesdays.com">join@photowalkwednesdays.com</a> and include the following information:</p>
-                <ol>
-                    <li>Your full name</li>
-                    <li>Do you want to photograph or model?</li>
-                    <li>Links to your existing work or Instagram</li>
-                </ol>
+                <p class="lead">Currently, there are no publicly scheduled events.</p>
+                <p>If you are interested in joining upcoming Photo Walks, apply below.</p>
+                {% include 'partials/apply_modal_button.html.twig' %}
+                <p>If approved, you will be contacted shortly with details on the next photo walk. Then, if you show up in person and put your best foot forward, you'll be invited to join the closed Photo Walk Wednesdays Facebook group and attend any future Photo Walk Wednesday events you like.</p>
             {% endif %}
         </div>
     </div>

@@ -16,7 +16,6 @@ class Event implements JsonSerializable {
     protected $parking;
     protected $model_theme;
     protected $photographer_challenge;
-    protected $google_form_link;
     protected $facebook_link;
     protected $banner_image;
     protected $password;
@@ -37,24 +36,6 @@ class Event implements JsonSerializable {
 
     public function __toString() {
         return $this->getTitle() ?: 'New Event';
-    }
-
-    public function getGoogleFormLink(): ?string {
-        return $this->google_form_link;
-    }
-
-    public function getGoogleFormLinkEmbedded(): ?string {
-        if (!($link = $this->getGoogleFormLink())) {
-            return null;
-        }
-
-        list($url) = explode('?', $link);
-        return $url .= '?embedded=true';
-    }
-
-    public function setGoogleFormLink(?string $google_form_link): Event {
-        $this->google_form_link = $google_form_link;
-        return $this;
     }
 
     public function getPassword(): ?string {

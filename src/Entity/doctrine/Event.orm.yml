@@ -14,7 +14,6 @@ App\Entity\Event:
         parking:                { type: text, nullable: true }
         model_theme:            { type: text, nullable: true }
         photographer_challenge: { type: text, nullable: true }
-        google_form_link:       { type: string, nullable: true }
         facebook_link:          { type: string, nullable: true }
         password:               { type: string, nullable: true }
 

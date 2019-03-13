@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        {% if (event.facebookLink or event.googleFormLink) and has_access == false %}
+        {% if event.facebookLink and has_access == false %}
             <div class="row mb-3">
                 <div class="col-md-6 offset-md-3 password-to-rsvp">
                     Enter password below to get the RSVP link
@@ -62,28 +62,6 @@
             </div>
         {% endif %}
 
-        {% if (event.googleFormLink and has_access) %}
-            <div class="row mb-3">
-                <div class="col-md-3 mx-auto">
-                    <button type="button" class="btn btn-primary" style="width:100%" data-toggle="modal" data-target="#exampleModal">
-                        RSVP
-                    </button>
-                </div>
-            </div>
-
-            <!-- Google form Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content" style="background:none;border:none;box-shadow:0">
-                        <iframe src="{{event.googleFormLinkEmbedded}}" style="height: 100vh" frameborder="0" marginheight="0" marginwidth="0">
-                            Loading...
-                        </iframe>
-                    </div>
-                </div>
-           </div>
-
-        {% endif %}
-
         <hr>
 
         <div class="row mb-5">
@@ -92,7 +70,7 @@
                     <dt>Date</dt>
                     <dd>{{event.date|date('l F jS, Y')}}</dd>
 
-                <dt>Time</dt>
+                    <dt>Time</dt>
                     <dd>{{event.date|date('g:i A')}}</dd>
 
                     {% if event.modelTheme %}
@@ -106,7 +84,7 @@
                     {% endif %}
 
                     <dt>About</dt>
-                    <dd>Photo Walk Wednesdays is a free bi-weekly meetup in Boston for photographers and models to practice their craft in a collaborative, zero-pressure environment.</dd>
+                    <dd>Photo Walk Wednesdays is a free bi-weekly meetup in Boston for photographers and models to practice their art in a collaborative, no-pressure environment.</dd>
                 </dl>
             </div>
 
@@ -139,14 +117,12 @@
 
                                     <hr>
 
-                                    <div class="password-protected--instructions"
-                                    <p>To request the password for this event, email <a class="email-link" href="mailto:join@photowalkwednesdays.com">join@photowalkwednesdays.com</a> and include the following:</p>
-                                    <ul>
-                                        <li>Your full name</li>
-                                        <li>The name of the event you'd like to join</li>
-                                        <li>Do you want to photograph or model?</li>
-                                        <li>Links to your existing work or Instagram</li>
-                                    </ul>
+                                    <div class="password-protected--instructions">
+                                        <p>To request the password for this event, apply here. If you application is approved, we will provide you with the password for the event.
+                                        {% include 'partials/apply_modal_button.html.twig' %}
+                                        </p>
+                                    </div>
+
                                     <div class="password-protected--explanation">
                                         <p>As much as we would like to welcome everyone, we need to screen new members to keep a balance of models and photographers and make sure you're a good fit. This ensures all attendees can make the most out of each photo walk.</p>
                                     </div>
