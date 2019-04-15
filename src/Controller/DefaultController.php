@@ -12,6 +12,16 @@ use App\Entity\Event;
 
 class DefaultController extends Controller {
 
+    const ApplicationQuestions = [
+        'Your full name',
+        'Instagram link',
+        'Are you primarily a photographer or model?',
+        'How did you hear about us?',
+        'Website link',
+        'Level of experience',
+        'Anything else you\'d like to share',
+    ];
+
     /**
      * @Route("/", name="index")
      */
@@ -32,6 +42,7 @@ class DefaultController extends Controller {
 
         return $this->render('index.html.twig', [
             'events' => $events,
+            'applicationQuestions' => self::ApplicationQuestions,
         ]);
     }
 
@@ -58,6 +69,7 @@ class DefaultController extends Controller {
             'has_access' => $has_access,
             'password_wrong' => $posted_pass && !$post_matches_pass,
             'password_right' => $posted_pass && $post_matches_pass,
+            'applicationQuestions' => array_merge(['Event: ' . $event->getTitle()], self::ApplicationQuestions),
         ]);
 
         if ($post_matches_pass) {

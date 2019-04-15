@@ -38,12 +38,9 @@
                 <p class="lead">Currently, there are no publicly scheduled events.</p>
                 <p>If you are interested in joining upcoming Photo Walks, email {% include 'partials/apply_email_link.html.twig' %} and include the following information:</p>
                 <ul>
-                    <li>Your full name</li>
-                    <li>Instagram link</li>
-                    <li>Are you primarily a photographer or model?</li>
-                    <li>Website link</li>
-                    <li>Level of experience</li>
-                    <li>Anything else you'd like to share</li>
+                    {% for question in applicationQuestions %}
+                        <li>{{question}}</li>
+                    {% endfor %}
                 </ul>
                 <p>If approved, you will be contacted shortly with details on the next photo walk. Then, if you show up in person and put your best foot forward, you'll be invited to join the closed Photo Walk Wednesdays Facebook group and attend any future Photo Walk Wednesday events you like.</p>
             {% endif %}
