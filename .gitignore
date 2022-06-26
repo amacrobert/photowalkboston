@@ -1,6 +1,9 @@
 
 ###> symfony/framework-bundle ###
-/.env
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
 /vendor/
@@ -8,3 +11,8 @@
 /public/images/uploads/*
 !/public/images/uploads/.gitkeep
 *.DS_Store
+.idea
+
+###> bref/symfony-bridge ###
+/.serverless/
+###< bref/symfony-bridge ###

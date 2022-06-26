@@ -1,0 +1,107 @@
+# Read the documentation at https://www.serverless.com/framework/docs/providers/aws/guide/serverless.yml/
+service: photo-walk-boston
+
+provider:
+  name: aws
+  region: us-east-1
+  stage: dev
+  runtime: provided.al2
+  environment:
+    # Symfony environment variables
+    # APP_ENV: prod
+  iam:
+    role:
+      managedPolicies:
+        - arn:aws:iam::aws:policy/AmazonElasticFileSystemClientFullAccess
+  vpc:
+    securityGroupIds:
+      - !Ref EfsSecurityGroup
+    subnetIds:
+      - ${self:custom.subnet1_id}
+
+custom:
+  vpc_id: vpc-611ef905
+  subnet1_id: subnet-14325771
+
+plugins:
+  - ./vendor/bref/bref
+
+functions:
+  # This function runs the Symfony website/API
+  web:
+    handler: public/index.php
+    timeout: 28 # in seconds (API Gateway has a timeout of 29 seconds)
+    layers:
+      - ${bref:layer.php-81-fpm}
+    events:
+      - httpApi: '*'
+    fileSystemConfig:
+      arn: !GetAtt DatabaseFileSystemAccessPoint.Arn
+      localMountPath: /mnt/efs
+
+  # This function let us run console commands in Lambda
+  console:
+    handler: bin/console
+    timeout: 120 # in seconds
+    layers:
+      - ${bref:layer.php-81} # PHP
+      - ${bref:layer.console} # The "console" layer
+    fileSystemConfig:
+      arn: !GetAtt DatabaseFileSystemAccessPoint.Arn
+      localMountPath: /mnt/efs
+
+package:
+  patterns:
+    # Excluded files and folders for deployment
+    - '!assets/**'
+    - '!node_modules/**'
+    - '!public/build/**'
+    - '!tests/**'
+    - '!var/**'
+    # If you want to include files and folders that are part of excluded folders,
+    # add them at the end
+    - 'var/cache/prod/**'
+    - 'public/build/entrypoints.json'
+    - 'public/build/manifest.json'
+
+resources:
+  Resources:
+    # Security groups and subnets
+    EfsSecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        VpcId: ${self:custom.vpc_id}
+        GroupDescription: "mnt target sg"
+        SecurityGroupIngress:
+          - IpProtocol: -1
+            CidrIp: "0.0.0.0/0"
+
+    # EFS to store SQLite database
+    DatabaseFileSystem:
+      Type: AWS::EFS::FileSystem
+      Properties:
+        AvailabilityZoneName: us-east-1a
+        Encrypted: false
+        PerformanceMode: generalPurpose
+
+    DatabaseFileSystemAccessPoint:
+      Type: AWS::EFS::AccessPoint
+      Properties:
+        FileSystemId: !Ref DatabaseFileSystem
+        PosixUser:
+          Uid: 1000
+          Gid: 1000
+        RootDirectory:
+          CreationInfo:
+            OwnerGid: 1000
+            OwnerUid: 1000
+            Permissions: "0777"
+          Path: /efs
+
+    DatabaseFileSystemMountTarget1:
+      Type: AWS::EFS::MountTarget
+      Properties:
+        FileSystemId: !Ref DatabaseFileSystem
+        SecurityGroups:
+          - !Ref EfsSecurityGroup
+        SubnetId: ${self:custom.subnet1_id}

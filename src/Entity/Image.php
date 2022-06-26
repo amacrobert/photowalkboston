@@ -6,11 +6,35 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use JsonSerializable;
 use DateTime;
 
-class Image implements JsonSerializable {
+use Doctrine\ORM\Mapping as ORM;
 
-    protected $id;
-    protected $filename;
-    protected $updated;
+/**
+ * Image
+ */
+#[ORM\Table(name: 'image')]
+#[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
+class Image
+{
+    /**
+     * @var int
+     */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    private $id;
+
+    /**
+     * @var string
+     */
+    #[ORM\Column(name: 'filename', type: 'string')]
+    private $filename;
+
+    /**
+     * @var \DateTime
+     */
+    #[ORM\Column(name: 'updated', type: 'datetime')]
+    private $updated;
 
     // unmapped - used for temp upload
     protected $file;
@@ -55,7 +79,10 @@ class Image implements JsonSerializable {
         return $this;
     }
 
-    public function lifecycleFileUpload() {
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function lifecycleFileUpload()
+    {
         $this->setUpdated(new DateTime);
     }
 }

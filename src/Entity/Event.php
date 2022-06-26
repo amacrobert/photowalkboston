@@ -3,23 +3,90 @@
 namespace App\Entity;
 
 use JsonSerializable;
+use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
-class Event implements JsonSerializable {
+/**
+ * Event
+ */
+#[ORM\Table(name: 'event')]
+#[ORM\Entity]
+class Event
+{
+    /**
+     * @var int
+     */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
+    private $id;
 
-    protected $id;
-    protected $title;
-    protected $date;
-    protected $description;
-    protected $meeting_location;
-    protected $meeting_instructions;
-    protected $parking;
-    protected $model_theme;
-    protected $photographer_challenge;
-    protected $facebook_link;
-    protected $banner_image;
-    protected $password;
+    /**
+     * @var string
+     */
+    #[ORM\Column(name: 'title', type: 'string')]
+    private $title;
 
+    /**
+     * @var \DateTime
+     */
+    #[ORM\Column(name: 'date', type: 'datetime')]
+    private $date;
+
+    /**
+     * @var string|null
+     */
+    #[ORM\Column(name: 'description', type: 'text', nullable: true)]
+    private $description;
+
+    /**
+     * @var string|null
+     */
+    #[ORM\Column(name: 'meeting_location', type: 'text', nullable: true)]
+    private $meeting_location;
+
+    /**
+     * @var string|null
+     */
+    #[ORM\Column(name: 'meeting_instructions', type: 'text', nullable: true)]
+    private $meeting_instructions;
+
+    /**
+     * @var string|null
+     */
+    #[ORM\Column(name: 'parking', type: 'text', nullable: true)]
+    private $parking;
+
+    /**
+     * @var string|null
+     */
+    #[ORM\Column(name: 'model_theme', type: 'text', nullable: true)]
+    private $model_theme;
+
+    /**
+     * @var string|null
+     */
+    #[ORM\Column(name: 'photographer_challenge', type: 'text', nullable: true)]
+    private $photographer_challenge;
+
+    /**
+     * @var string|null
+     */
+    #[ORM\Column(name: 'facebook_link', type: 'string', nullable: true)]
+    private $facebook_link;
+
+    /**
+     * @var string|null
+     */
+    #[ORM\Column(name: 'password', type: 'string', nullable: true)]
+    private $password;
+
+    /**
+     * @var \App\Entity\Image
+     */
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Image')]
+    #[ORM\JoinColumn(name: 'banner_image_id', referencedColumnName: 'id')]
+    private $banner_image;
     public function jsonSerialize() {
         return [
             'title' => $this->getTitle(),
