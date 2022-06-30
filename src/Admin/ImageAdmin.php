@@ -11,7 +11,8 @@ use DateTime;
 class ImageAdmin extends AbstractAdmin {
 
     // Form fields
-    protected function configureFormFields(FormMapper $formMapper) {
+    protected function configureFormFields(FormMapper $formMapper): void
+    {
 
         $file_options = ['required' => false];
         if ($filename = $this->getSubject()->getFilename()) {
@@ -54,22 +55,26 @@ class ImageAdmin extends AbstractAdmin {
     }
 
 
-    public function prePersist($image) {
+    public function prePersist($image): void
+    {
         $this->upload($image);
     }
 
-    public function preUpdate($image) {
+    public function preUpdate($image): void
+    {
         $this->upload($image);
     }
 
     // Filter fields
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
+    {
         $datagridMapper
         ;
     }
 
     // List view fields
-    protected function configureListFields(ListMapper $listMapper) {
+    protected function configureListFields(ListMapper $listMapper): void
+    {
         $listMapper
             ->add('filename', 'string', ['template' => 'list_image.html.twig'])
         ;

@@ -7,8 +7,8 @@
         "ext-iconv": "*",
         "ext-json": "*",
         "sensio/framework-extra-bundle": "^5.1",
-        "sonata-project/admin-bundle": "^3.35",
-        "sonata-project/doctrine-orm-admin-bundle": "^3.6",
+        "sonata-project/admin-bundle": "^4.0",
+        "sonata-project/doctrine-orm-admin-bundle": "^4.0",
         "symfony/console": "*",
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "*",
@@ -16,12 +16,12 @@
         "symfony/security-bundle": "*",
         "symfony/twig-bundle": "*",
         "symfony/yaml": "*",
-        "symfony/dotenv": "*",
+        "symfony/dotenv": "*"
     },
     "require-dev": {
-        "symfony/debug-bundle": "4.4",
-        "symfony/stopwatch": "4.4",
-        "symfony/web-profiler-bundle": "4.4"
+        "symfony/debug-bundle": "*",
+        "symfony/stopwatch": "*",
+        "symfony/web-profiler-bundle": "*"
     },
     "config": {
         "preferred-install": {
@@ -67,7 +67,7 @@
     },
     "extra": {
         "symfony": {
-            "require": "4.4",
+            "require": "5.4.*",
             "allow-contrib": true
         }
     }
