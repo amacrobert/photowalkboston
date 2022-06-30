@@ -5,13 +5,26 @@ services:
     build: .
     ports:
       - "8081:8000"
-    command: php
     tty: true
     command: "public/index.php"
     volumes:
       - .:/var/task
       - $HOME/.ssh/id_ed25519:/root/.ssh/id_ed25519
       - $HOME/.ssh/id_ed25519.pub:/root/.ssh/id_ed25519.pub
+
+  mysql:
+    container_name: photowalkboston-mysql
+    platform: linux/x86_64
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: photowalkboston
+      MYSQL_USER: photowalkboston
+      MYSQL_PASSWORD: photowalkboston
 
 volumes:
   db_data: {}

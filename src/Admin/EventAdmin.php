@@ -17,8 +17,8 @@ class EventAdmin extends AbstractAdmin {
     ];
 
     // Form fields
-    protected function configureFormFields(FormMapper $formMapper) {
-
+    protected function configureFormFields(FormMapper $formMapper): void
+    {
         $event = $this->getSubject();
         $date_options = ['help' => 'The date and meeting time of the event; for 6:30pm, enter 18:30'];
 
@@ -82,7 +82,8 @@ class EventAdmin extends AbstractAdmin {
     }
 
     // Filter fields
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper) {
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
+    {
         $datagridMapper
             ->add('title')
             ->add('date')
@@ -90,9 +91,10 @@ class EventAdmin extends AbstractAdmin {
     }
 
     // List view fields
-    protected function configureListFields(ListMapper $listMapper) {
+    protected function configureListFields(ListMapper $listMapper): void
+    {
         $listMapper
-            ->addIdentifier('title')
+            ->addIdentifier('title', null, ['route' => ['name' => 'edit']])
             ->add('date')
             ->add('banner_image.filename', 'string', [
                 'label' => 'Banner',

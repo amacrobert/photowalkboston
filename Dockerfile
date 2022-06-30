@@ -1,4 +1,4 @@
-FROM bref/php-81-fpm
+FROM bref/php-74-fpm
 
 RUN yum install -y git gzip zip unzip python3
 
@@ -10,7 +10,7 @@ WORKDIR /var/task
 
 RUN echo 'alias ll="ls -lAh"' >> /root/.bashrc
 
-COPY --from=bref/extra-pcov-php-81 /opt /opt
+COPY --from=bref/extra-pcov-php-74 /opt /opt
 
 # Symfony server
 RUN curl -sS https://get.symfony.com/cli/installer | bash \
