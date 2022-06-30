@@ -9,12 +9,15 @@ use Sonata\AdminBundle\Datagrid\{ListMapper, DatagridMapper};
 use Symfony\Component\Form\Extension\Core\Type\{TextType, FileType, UrlType};
 use DateTime;
 
-class EventAdmin extends AbstractAdmin {
-
-    protected $datagridValues = [
-        '_sort_by' => 'date',
-        '_sort_order' => 'DESC',
-    ];
+class EventAdmin extends AbstractAdmin
+{
+    protected function configureDefaultSortValues(array &$sortValues): void
+    {
+        $sortValues = [
+            '_sort_by' => 'date',
+            '_sort_order' => 'DESC',
+        ];
+    }
 
     // Form fields
     protected function configureFormFields(FormMapper $formMapper): void
