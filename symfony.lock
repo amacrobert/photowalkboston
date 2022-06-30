@@ -126,7 +126,13 @@
         "version": "3.6.1"
     },
     "sonata-project/exporter": {
-        "version": "1.9.0"
+        "version": "2.8",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "2.4",
+            "ref": "93d6df022ef1dc24bdfa8667ddd560bbde89a7cc"
+        }
     },
     "symfony/asset": {
         "version": "v4.1.1"
