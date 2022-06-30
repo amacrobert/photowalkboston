@@ -1,0 +1,17 @@
+version: '3'
+services:
+  php:
+    container_name: photowalkboston
+    build: .
+    ports:
+      - "8081:8000"
+    command: php
+    tty: true
+    command: "public/index.php"
+    volumes:
+      - .:/var/task
+      - $HOME/.ssh/id_ed25519:/root/.ssh/id_ed25519
+      - $HOME/.ssh/id_ed25519.pub:/root/.ssh/id_ed25519.pub
+
+volumes:
+  db_data: {}
