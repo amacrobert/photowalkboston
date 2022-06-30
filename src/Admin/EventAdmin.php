@@ -94,7 +94,7 @@ class EventAdmin extends AbstractAdmin {
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
-            ->addIdentifier('title')
+            ->addIdentifier('title', null, ['route' => ['name' => 'edit']])
             ->add('date')
             ->add('banner_image.filename', 'string', [
                 'label' => 'Banner',
