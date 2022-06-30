@@ -1,3 +1,5 @@
+.idea/
+.serverless/
 
 ###> symfony/framework-bundle ###
 /.env

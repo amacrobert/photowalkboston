@@ -107,6 +107,15 @@
     "sonata-project/datagrid-bundle": {
         "version": "2.3.1"
     },
+    "sonata-project/doctrine-extensions": {
+        "version": "1.9",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.8",
+            "ref": "4ea4a4b6730f83239608d7d4c849533645c70169"
+        }
+    },
     "sonata-project/doctrine-orm-admin-bundle": {
         "version": "3.6.1"
     },
