@@ -15,10 +15,13 @@
         "symfony/monolog-bundle": "^3.3",
         "symfony/security-bundle": "*",
         "symfony/twig-bundle": "*",
-        "symfony/yaml": "*"
+        "symfony/yaml": "*",
+        "symfony/dotenv": "*"
     },
     "require-dev": {
-        "symfony/dotenv": "*"
+        "symfony/debug-bundle": "4.4",
+        "symfony/stopwatch": "4.4",
+        "symfony/web-profiler-bundle": "4.4"
     },
     "config": {
         "preferred-install": {
