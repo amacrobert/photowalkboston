@@ -1,5 +1,5 @@
-# photowalkwednesdays
-[photowalkwednesdays.com](https://photowalkwednesdays.com)
+# photowalkboston
+[photowalkboston.com](https://photowalkboston.com)
 
 A website built for a local Boston creative photography meetup.
 

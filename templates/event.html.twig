@@ -1,11 +1,11 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    {{ event.title }} - Photo Walk Wednesdays
+    {{ event.title }} - Photo Walk Boston
 {% endblock %}
 
 {% block open_graph %}
-    <meta property="og:title" content="{{event.title}} {{event.date|date('M d')}} - Photo Walk Wednesdays" />
+    <meta property="og:title" content="{{event.title}} {{event.date|date('M d')}} - Photo Walk Boston" />
     <meta property="og:description" content="A free creative meetup in Boston for photographers and models" />
     <meta property="og:url" content="http://{{host}}/events/{{event.id}}" />
     <meta property="og:image" content="http://{{host}}{{event.bannerImageUrl}}" />
@@ -26,7 +26,7 @@
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <strong>Access granted.</strong> You may now see the meeting location and parking instructions. See you on Wednesday!
+                        <strong>Access granted.</strong> You may now see the meeting location and parking instructions. See you at the meetup!
                     </div>
                 {% elseif password_wrong %}
                     <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
@@ -37,7 +37,7 @@
                     </div>
                 {% endif %}
 
-                <h3 class="event-page--subtitle">Photo Walk Wednesdays:</h3>
+                <h3 class="event-page--subtitle">Photo Walk Boston:</h3>
                 <h1 class="event-page--title">{{event.title}}</h1>
                 <h3 class="event-page--title-date">{{event.date|date('l F jS, Y')}}</h3>
                 <p class="lead" style="text-align: justify">{{event.description}}</p>
@@ -84,7 +84,7 @@
                     {% endif %}
 
                     <dt>About</dt>
-                    <dd>Photo Walk Wednesdays is a free intermittent meetup in Boston for photographers and models to practice their art in a collaborative, no-pressure environment.</dd>
+                    <dd>Photo Walk Boston is a free intermittent meetup in Boston for photographers and models to practice their art in a collaborative, no-pressure environment.</dd>
                     <dd class="text-muted">This is a meetup for people age 18 and up. This group is for adults to practice, network, learn and socialize. It is not intended to be a family- or child-friendly outing.</dd>
                 </dl>
             </div>
@@ -125,7 +125,7 @@
                                                 <li>{{question}}</li>
                                             {% endfor %}
                                         </ul>
-                                        <p>If approved, you will be contacted shortly with the password. Then, if you show up in person and put your best foot forward, you'll be invited to join the closed Photo Walk Wednesdays Facebook group and attend any future Photo Walk Wednesday events you like.</p>
+                                        <p>If approved, you will be contacted shortly with the password. Then, if you show up in person and put your best foot forward, you'll be invited to join the closed Photo Walk Boston Facebook group and attend any future Photo Walk Boston meetups you like.</p>
                                     </div>
 
                                     <div class="password-protected--explanation">
