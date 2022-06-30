@@ -3,15 +3,15 @@
 namespace App\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Cookie;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Event;
 
-class DefaultController extends Controller {
-
+class DefaultController extends AbstractController
+{
     const ApplicationQuestions = [
         'Your full name',
         'Instagram link',
@@ -25,8 +25,8 @@ class DefaultController extends Controller {
     /**
      * @Route("/", name="index")
      */
-    public function index(EntityManagerInterface $em) {
-
+    public function index(EntityManagerInterface $em)
+    {
         $dql = "
             SELECT event
             FROM App\Entity\Event event
@@ -40,7 +40,7 @@ class DefaultController extends Controller {
             ->setMaxResults(3);
         $events = $query->getResult();
 
-        return $this->render('index.html.twig', [
+        return $this->renderWithHostData('index.html.twig', [
             'events' => $events,
             'applicationQuestions' => self::ApplicationQuestions,
         ]);
@@ -49,8 +49,8 @@ class DefaultController extends Controller {
     /**
      * @Route("/events/{event_id}", name="event")
      */
-    public function event($event_id, EntityManagerInterface $em, Request $request) {
-
+    public function event($event_id, EntityManagerInterface $em, Request $request)
+    {
         $event = $em->find(Event::class, $event_id);
 
         $password = strtolower($event->getPassword());
@@ -64,7 +64,7 @@ class DefaultController extends Controller {
 
         $has_access = !$event_protected || $cookie_matches_pass || $post_matches_pass;
 
-        $response = $this->render('event.html.twig', [
+        $response = $this->renderWithHostData('event.html.twig', [
             'event' => $event,
             'has_access' => $has_access,
             'password_wrong' => $posted_pass && !$post_matches_pass,
@@ -79,11 +79,12 @@ class DefaultController extends Controller {
         return $response;
     }
 
-    protected function render(
+    protected function renderWithHostData(
         string $view,
         array $parameters = array(),
         Response $response = null
-    ): Response {
+    ): Response
+    {
         $parameters['host'] = $_SERVER['HTTP_HOST'];
         $parameters['now'] = new \DateTime;
         return parent::render($view, $parameters);
