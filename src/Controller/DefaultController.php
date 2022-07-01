@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Service\CalendarService;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +26,7 @@ class DefaultController extends AbstractController
     ];
 
     /**
-     * @Route("/", name="index")
+     * @Route("/", name="index", methods="GET")
      */
     public function index(EntityManagerInterface $em)
     {
@@ -47,11 +50,18 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/events/{event_id}", name="event")
+     * @Route("/events/{event_id}", name="event", methods={"GET","POST"})
      */
-    public function event($event_id, EntityManagerInterface $em, Request $request)
+    public function event(
+        $event_id,
+        EntityManagerInterface $em,
+        Request $request,
+        CalendarService $calendar_service
+    )
     {
-        $event = $em->find(Event::class, $event_id);
+        if (!$event = $em->find(Event::class, $event_id)) {
+            return new Response(null, 404);
+        }
 
         $password = strtolower($event->getPassword());
         $cookie_name = 'event_' . $event->getId() . '_pass';
@@ -64,17 +74,60 @@ class DefaultController extends AbstractController
 
         $has_access = !$event_protected || $cookie_matches_pass || $post_matches_pass;
 
+        $this->configureCalendarForEvent($calendar_service, $event);
+
         $response = $this->renderWithHostData('event.html.twig', [
             'event' => $event,
             'has_access' => $has_access,
             'password_wrong' => $posted_pass && !$post_matches_pass,
             'password_right' => $posted_pass && $post_matches_pass,
             'applicationQuestions' => array_merge(['Event: ' . $event->getTitle()], self::ApplicationQuestions),
+            'calendar' => [
+                'google' => $calendar_service->getGoogleLink(),
+                'outlook' => $calendar_service->getOutlookLink(),
+                'office365' => $calendar_service->getOffice365Link(),
+                'ics' => $calendar_service->getIcsLink($event),
+            ],
         ]);
 
         if ($post_matches_pass) {
             $response->headers->setCookie(new Cookie($cookie_name, $posted_pass));
         }
+
+        return $response;
+    }
+
+    /**
+     * @Route("/ics/{event_id}", name="ics", methods="GET")
+     */
+    public function icsDownload(
+        $event_id,
+        CalendarService $calendar_service,
+        EntityManagerInterface $em,
+        Request $request
+    ): Response
+    {
+        if (!$event = $em->find(Event::class, $event_id)) {
+            return new Response(null, 404);
+        }
+
+        $password = strtolower($event->getPassword());
+        $cookie_name = 'event_' . $event->getId() . '_pass';
+        $cookie_matches_pass = $request->cookies->get($cookie_name) == $password;
+
+        // The user must have entered the correct password to download the invite
+        if (!$cookie_matches_pass) {
+            return new Response(null, 403);
+        }
+
+        $this->configureCalendarForEvent($calendar_service, $event);
+
+        $response = new Response($calendar_service->getIcsContent());
+        $disposition = $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            'download.ics'
+        );
+        $response->headers->set('Content-Disposition', $disposition);
 
         return $response;
     }
@@ -90,4 +143,35 @@ class DefaultController extends AbstractController
         return parent::render($view, $parameters);
     }
 
+    private function configureCalendarForEvent(CalendarService $calendar_service, Event $event)
+    {
+        $start = $event->getDate();
+        $end = (clone $start)->add(new \DateInterval('PT3H'));
+
+        $calendar_event_description = $event->getDescription() . PHP_EOL . PHP_EOL;
+        if ($event->getMeetingInstructions()) {
+            $calendar_event_description .= 'Meeting instructions: ' . $event->getMeetingInstructions() . PHP_EOL . PHP_EOL;
+        }
+        if ($event->getParking()) {
+            $calendar_event_description .= 'Parking instructions: ' . $event->getParking() . PHP_EOL . PHP_EOL;
+        }
+        if ($event->getModelTheme()) {
+            $calendar_event_description .= 'Optional model theme: ' . $event->getModelTheme() . PHP_EOL . PHP_EOL;
+        }
+        if ($event->getPhotographerChallenge()) {
+            $calendar_event_description .= 'Optional photographer challenge: ' . $event->getPhotographerChallenge() . PHP_EOL . PHP_EOL;
+        }
+        $calendar_event_description .= 'Photo Walk Boston is a free intermittent meetup in Boston for photographers ' .
+            'and models to practice their art in a collaborative, no-pressure environment.' . PHP_EOL . PHP_EOL;
+        $calendar_event_description .= 'This is a meetup for people age 18 and up. This group is for adults to ' .
+            'practice, network, learn and socialize. It is not intended to be a family- or child-friendly outing.';
+
+        $calendar_service->configure(
+            $start,
+            $end,
+            $event->getTitle(),
+            $calendar_event_description,
+            $event->getMeetingLocation()
+        );
+    }
 }
