@@ -35,7 +35,7 @@ class CalendarService
     {
         $this->start = (clone $start)->add($this->getTimezoneOffset());
         $this->end = (clone $end)->add($this->getTimezoneOffset());
-        $this->title = $title;
+        $this->title = 'Photo Walk Boston: ' . $title;
         $this->description = $description;
         $this->location = $location;
     }
