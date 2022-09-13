@@ -1,8 +1,12 @@
-FROM bref/php-74-fpm
+FROM php:7.4-fpm
 
-RUN yum install -y git gzip zip unzip python3
+RUN apt-get update -y \
+    && apt-get install -y \
+        vim git gzip zip unzip python3 curl
 
-COPY --from=composer:2.2 /usr/bin/composer /usr/local/bin/composer
+RUN docker-php-ext-install pdo_mysql
+
+COPY --from=composer:2.4 /usr/bin/composer /usr/local/bin/composer
 
 WORKDIR /var/task
 
@@ -13,6 +17,7 @@ RUN echo 'alias ll="ls -lAh"' >> /root/.bashrc
 COPY --from=bref/extra-pcov-php-74 /opt /opt
 
 # Symfony server
-RUN curl -sS https://get.symfony.com/cli/installer | bash \
-    && mv /root/.symfony/bin/symfony /usr/local/bin/symfony \
-    && symfony server:ca:install
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash \
+    && apt install -y symfony-cli
+
+RUN symfony server:ca:install

@@ -3,10 +3,8 @@
 
 A website built for a local Boston creative photography meetup.
 
-Technologies used:
+## Setup
 
-* Symfony 4
-* Sonata Admin
-* Bootstrap 4
-* Doctrine
-* PHP 7
+- `docker-compose up --build`
+- `docker exec -it photowalkboston composer install`
+- Go to https://localhost:8080/

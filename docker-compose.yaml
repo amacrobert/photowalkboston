@@ -4,9 +4,9 @@ services:
     container_name: photowalkboston
     build: .
     ports:
-      - "8081:8000"
+      - "8080:8080"
     tty: true
-    command: "public/index.php"
+    command: "symfony server:start --port 8080"
     volumes:
       - .:/var/task
       - $HOME/.ssh/id_ed25519:/root/.ssh/id_ed25519
