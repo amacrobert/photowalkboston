@@ -2,14 +2,19 @@
 
 namespace App\Admin;
 
+use App\Entity\Image;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\{ListMapper, DatagridMapper};
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Form\Extension\Core\Type\{TextType, FileType};
 use DateTime;
 
-class ImageAdmin extends AbstractAdmin {
-
+/**
+ * @extends AbstractAdmin<Image>
+ */
+class ImageAdmin extends AbstractAdmin
+{
     // Form fields
     protected function configureFormFields(FormMapper $formMapper): void
     {
@@ -26,7 +31,8 @@ class ImageAdmin extends AbstractAdmin {
         ;
     }
 
-    public function upload($image) {
+    public function upload(Image $image): void
+    {
         if (!$image->getFile()) {
             return;
         }
@@ -45,7 +51,8 @@ class ImageAdmin extends AbstractAdmin {
         $image->setFilename('/images/uploads/' . $image->getFile()->getClientOriginalName());
     }
 
-    public function getTemplate($name) {
+    public function getTemplate(string $name): string
+    {
         switch ($name) {
             case 'short_object_description':
                 return 'Event/short_object_description.html.twig';

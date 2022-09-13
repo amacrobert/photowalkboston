@@ -40,44 +40,57 @@ class Image implements JsonSerializable
     private $updated;
 
     // unmapped - used for temp upload
-    protected $file;
+    protected ?UploadedFile $file;
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getFilename() ?: 'New Image';
     }
 
-    public function jsonSerialize() {
+    /**
+     * @return null[]|string[]
+     */
+    public function jsonSerialize(): array
+    {
         return [
             'filename' => $this->getFilename(),
         ];
     }
 
-    public function getId(): ?int {
+    public function getId(): ?int
+    {
         return $this->id;
     }
 
-    public function getFile(): ?UploadedFile {
+    public function getFile(): ?UploadedFile
+    {
         return $this->file;
     }
 
-    public function setFile(?UploadedFile $file) {
+    public function setFile(?UploadedFile $file): self
+    {
         $this->file = $file;
+        return $this;
     }
 
-    public function getFilename(): ?string {
+    public function getFilename(): ?string
+    {
         return $this->filename;
     }
 
-    public function setFilename(?string $filename): Image {
+    public function setFilename(?string $filename): self
+    {
         $this->filename = $filename;
         return $this;
     }
 
-    public function getUpdated(): ?DateTime {
+    public function getUpdated(): ?\DateTimeInterface
+    {
         return $this->updated;
     }
 
-    public function setUpdated(?DateTime $updated): Image {
+    public function setUpdated(?DateTime $updated): self
+    {
         $this->updated = $updated;
         return $this;
     }
@@ -86,7 +99,8 @@ class Image implements JsonSerializable
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function lifecycleFileUpload() {
+    public function lifecycleFileUpload(): void
+    {
         $this->setUpdated(new DateTime);
     }
 }

@@ -2,13 +2,16 @@
 
 namespace App\Admin;
 
+use App\Entity\Event;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Form\Type\AdminType;
 use Sonata\AdminBundle\Datagrid\{ListMapper, DatagridMapper};
 use Symfony\Component\Form\Extension\Core\Type\{TextType, FileType, UrlType};
 use DateTime;
 
+/**
+ * @extends AbstractAdmin<Event>
+ */
 class EventAdmin extends AbstractAdmin
 {
     protected function configureDefaultSortValues(array &$sortValues): void

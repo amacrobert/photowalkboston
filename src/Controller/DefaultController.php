@@ -28,7 +28,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="index", methods="GET")
      */
-    public function index(EntityManagerInterface $em, Request $request)
+    public function index(EntityManagerInterface $em, Request $request): Response
     {
         $dql = "
             SELECT event
@@ -55,11 +55,11 @@ class DefaultController extends AbstractController
      * @Route("/events/{event_id}", name="event", methods={"GET","POST"})
      */
     public function event(
-        $event_id,
+        int $event_id,
         EntityManagerInterface $em,
         Request $request,
         CalendarService $calendar_service
-    )
+    ): Response
     {
         if (!$event = $em->find(Event::class, $event_id)) {
             return new Response(null, 404);
@@ -107,7 +107,7 @@ class DefaultController extends AbstractController
      * @Route("/ics/{event_id}", name="ics", methods="GET")
      */
     public function icsDownload(
-        $event_id,
+        int $event_id,
         CalendarService $calendar_service,
         EntityManagerInterface $em,
         Request $request
@@ -138,7 +138,7 @@ class DefaultController extends AbstractController
         return $response;
     }
 
-    private function configureCalendarForEvent(CalendarService $calendar_service, Event $event)
+    private function configureCalendarForEvent(CalendarService $calendar_service, Event $event): void
     {
         $start = $event->getDate();
         $end = (clone $start)->add(new \DateInterval('PT3H'));

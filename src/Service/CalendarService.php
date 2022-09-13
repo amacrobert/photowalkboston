@@ -8,13 +8,13 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class CalendarService
 {
-    private $request_stack;
-    private $url_generator;
-    private $start;
-    private $end;
-    private $title;
-    private $description;
-    private $location;
+    private RequestStack $request_stack;
+    private UrlGeneratorInterface $url_generator;
+    private \DateTimeInterface $start;
+    private \DateTimeInterface $end;
+    private ?string $title;
+    private ?string $description;
+    private ?string $location;
 
     public function __construct(
         RequestStack $request_stack,
