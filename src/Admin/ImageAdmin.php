@@ -68,8 +68,6 @@ class ImageAdmin extends AbstractAdmin {
     // Filter fields
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
-        $datagridMapper
-        ;
     }
 
     // List view fields
