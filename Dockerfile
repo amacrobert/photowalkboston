@@ -8,7 +8,7 @@ RUN docker-php-ext-install pdo_mysql
 
 COPY --from=composer:2.4 /usr/bin/composer /usr/local/bin/composer
 
-WORKDIR /var/task
+RUN pecl install pcov && docker-php-ext-enable pcov
 
 # From here on should be separated into a development image
 
@@ -21,3 +21,5 @@ RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | b
     && apt install -y symfony-cli
 
 RUN symfony server:ca:install
+
+WORKDIR /var/task

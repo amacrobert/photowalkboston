@@ -28,7 +28,7 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="index", methods="GET")
      */
-    public function index(EntityManagerInterface $em)
+    public function index(EntityManagerInterface $em, Request $request)
     {
         $dql = "
             SELECT event
@@ -43,7 +43,9 @@ class DefaultController extends AbstractController
             ->setMaxResults(3);
         $events = $query->getResult();
 
-        return $this->renderWithHostData('index.html.twig', [
+        return $this->render('index.html.twig', [
+            'host' => $request->getHttpHost(),
+            'now' => new \DateTime,
             'events' => $events,
             'applicationQuestions' => self::ApplicationQuestions,
         ]);
@@ -65,8 +67,8 @@ class DefaultController extends AbstractController
 
         $password = strtolower($event->getPassword());
         $cookie_name = 'event_' . $event->getId() . '_pass';
-        parse_str($request->getContent(), $post_vals);
-        $posted_pass = isset($post_vals[$cookie_name]) ? strtolower($post_vals[$cookie_name]) : null;
+
+        $posted_pass = $request->request->has($cookie_name) ? strtolower($request->request->get($cookie_name)) : null;
 
         $event_protected = (bool)$password;
         $cookie_matches_pass = $request->cookies->get($cookie_name) == $password;
@@ -76,7 +78,11 @@ class DefaultController extends AbstractController
 
         $this->configureCalendarForEvent($calendar_service, $event);
 
-        $response = $this->renderWithHostData('event.html.twig', [
+        $event->setDescription($request->getContent());
+
+        $response = $this->render('event.html.twig', [
+            'host' => $request->getHttpHost(),
+            'now' => new \DateTime,
             'event' => $event,
             'has_access' => $has_access,
             'password_wrong' => $posted_pass && !$post_matches_pass,
@@ -130,17 +136,6 @@ class DefaultController extends AbstractController
         $response->headers->set('Content-Disposition', $disposition);
 
         return $response;
-    }
-
-    protected function renderWithHostData(
-        string $view,
-        array $parameters = array(),
-        Response $response = null
-    ): Response
-    {
-        $parameters['host'] = $_SERVER['HTTP_HOST'];
-        $parameters['now'] = new \DateTime;
-        return parent::render($view, $parameters);
     }
 
     private function configureCalendarForEvent(CalendarService $calendar_service, Event $event)

@@ -20,7 +20,13 @@
         "symfony/yaml": "*"
     },
     "require-dev": {
+        "dama/doctrine-test-bundle": "^7.1",
+        "phpunit/phpunit": "^9.5",
+        "symfony/browser-kit": "*",
+        "symfony/css-selector": "*",
         "symfony/debug-bundle": "*",
+        "symfony/maker-bundle": "^1.43",
+        "symfony/phpunit-bridge": "^6.1",
         "symfony/stopwatch": "*",
         "symfony/web-profiler-bundle": "*"
     },
@@ -61,7 +67,8 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "test": "bin/phpunit"
     },
     "conflict": {
         "symfony/symfony": "*"
