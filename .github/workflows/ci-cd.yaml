@@ -9,35 +9,29 @@ jobs:
     runs-on: ubuntu-latest
     env:
       APP_ENV: test
-#      DATABASE_URL: mysql://photowalkboston:photowalkboston@0.0.0.0:3306/photowalkboston?serverVersion=8.0
+      DATABASE_URL: mysql://photowalkboston:photowalkboston@0.0.0.0:3306/photowalkboston?serverVersion=8.0
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-#      - name: Setup PHP
-#        uses: shivammathur/setup-php@v2
-#        with:
-#          php-version: 8.1
-#          coverage: pcov
-#      - name: Setup MySQL
-#        uses: mirromutth/mysql-action@v1.1
-#        with:
-#          mysql version: 8.0
-#          mysql database: photowalkboston
-#          mysql user: photowalkboston
-#          mysql password: photowalkboston
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          coverage: pcov
+      - name: Setup MySQL
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql version: 8.0
+          mysql database: photowalkboston
+          mysql user: photowalkboston
+          mysql password: photowalkboston
 
-      - run: docker-compose pull
-      - uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-      - run: docker-compose build
-      - run: docker-compose up
-
-      - name: Docker compose
-        run: docker-compose up --build
       - name: Install composer packages
-        run: docker exec -it photowalkboston composer install --no-progress --no-interaction --prefer-dist
+        run: composer install --no-progress --no-interaction --prefer-dist
+      - name: Static analysis
+        run: vendor/bin/phpstan
       - name: Database migrations
-        run: docker exec -it photowalkboston bin/console doctrine:schema:update --force --dump-sql
+        run: bin/console doctrine:schema:update --force --dump-sql
       - name: Unit tests
-        run: docker exec -it photowalkboston composer test
+        run: composer test

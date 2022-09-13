@@ -50,7 +50,7 @@ class ImageAdmin extends AbstractAdmin {
             case 'short_object_description':
                 return 'Event/short_object_description.html.twig';
             default:
-                return parent::getTemplate($name);
+                return $this->getTemplateRegistry()->getTemplate($name);
         }
     }
 
