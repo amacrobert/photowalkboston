@@ -19,7 +19,12 @@
         "symfony/yaml": "*"
     },
     "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "symfony/browser-kit": "*",
+        "symfony/css-selector": "*",
         "symfony/debug-bundle": "*",
+        "symfony/maker-bundle": "^1.48",
+        "symfony/phpunit-bridge": "^6.2",
         "symfony/stopwatch": "*",
         "symfony/web-profiler-bundle": "*"
     },
