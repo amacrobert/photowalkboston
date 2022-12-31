@@ -46,7 +46,8 @@ class Image implements JsonSerializable
         return $this->getFilename() ?: 'New Image';
     }
 
-    public function jsonSerialize() {
+    public function jsonSerialize(): array
+    {
         return [
             'filename' => $this->getFilename(),
         ];

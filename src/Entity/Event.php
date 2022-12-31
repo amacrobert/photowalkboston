@@ -103,7 +103,8 @@ class Event implements JsonSerializable
      */
     private $banner_image;
 
-    public function jsonSerialize() {
+    public function jsonSerialize(): array
+    {
         return [
             'title' => $this->getTitle(),
             'date' => $this->getDate(),
