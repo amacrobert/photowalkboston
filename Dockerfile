@@ -3,6 +3,7 @@ FROM bref/php-82-fpm
 RUN yum install -y git gzip zip unzip python3 tar sudo passwd
 COPY --from=composer:2.4 /usr/bin/composer /usr/local/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
+RUN git config --global --add safe.directory '*'
 
 #RUN sudo useradd docker && passwd -l docker
 #RUN echo '%docker ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
