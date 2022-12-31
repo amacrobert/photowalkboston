@@ -10,7 +10,7 @@
         "sonata-project/doctrine-orm-admin-bundle": "^4.3",
         "symfony/console": "*",
         "symfony/dotenv": "*",
-        "symfony/flex": "^1.0",
+        "symfony/flex": "^2.0",
         "symfony/framework-bundle": "*",
         "symfony/monolog-bundle": "^3.8",
         "symfony/runtime": "*",
