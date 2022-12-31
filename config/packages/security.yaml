@@ -1,4 +1,7 @@
 security:
+    # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
+    password_hashers:
+        Symfony\Component\Security\Core\User\InMemoryUser: plaintext
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         users_in_memory:
@@ -27,6 +30,3 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-
-    password_hashers:
-        Symfony\Component\Security\Core\User\InMemoryUser: plaintext
