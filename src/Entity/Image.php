@@ -40,13 +40,16 @@ class Image implements JsonSerializable
     private $updated;
 
     // unmapped - used for temp upload
-    protected $file;
+    protected ?UploadedFile $file;
 
     public function __toString()
     {
         return $this->getFilename() ?: 'New Image';
     }
 
+    /**
+     * @return string[]
+     */
     public function jsonSerialize(): array
     {
         return [
@@ -64,9 +67,10 @@ class Image implements JsonSerializable
         return $this->file;
     }
 
-    public function setFile(?UploadedFile $file)
+    public function setFile(?UploadedFile $file): self
     {
         $this->file = $file;
+        return $this;
     }
 
     public function getFilename(): ?string
@@ -95,8 +99,8 @@ class Image implements JsonSerializable
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function lifecycleFileUpload()
+    public function lifecycleFileUpload(): self
     {
-        $this->setUpdated(new DateTime());
+        return $this->setUpdated(new DateTime());
     }
 }

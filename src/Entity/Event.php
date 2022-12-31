@@ -103,6 +103,9 @@ class Event implements JsonSerializable
      */
     private $banner_image;
 
+    /**
+     * @return array<string, mixed>
+     */
     public function jsonSerialize(): array
     {
         return [

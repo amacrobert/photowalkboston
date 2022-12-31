@@ -2,16 +2,20 @@
 
 namespace App\Admin;
 
+use App\Entity\Image;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\{ListMapper, DatagridMapper};
 use Symfony\Component\Form\Extension\Core\Type\{TextType, FileType};
 use DateTime;
 
+/**
+ * @extends AbstractAdmin<Image>
+ */
 class ImageAdmin extends AbstractAdmin
 {
     // Form fields
-    protected function configureFormFields(FormMapper $formMapper): void
+    protected function configureFormFields(FormMapper $form): void
     {
 
         $file_options = ['required' => false];
@@ -21,15 +25,15 @@ class ImageAdmin extends AbstractAdmin
             ';
         }
 
-        $formMapper
+        $form
             ->add('file', FileType::class, $file_options)
         ;
     }
 
-    public function upload($image)
+    public function upload(?Image $image): ?Image
     {
         if (!$image->getFile()) {
-            return;
+            return null;
         }
 
         ///////////////////////////////
@@ -44,18 +48,9 @@ class ImageAdmin extends AbstractAdmin
 
         // set the path property to the filename where you've saved the file
         $image->setFilename('/images/uploads/' . $image->getFile()->getClientOriginalName());
-    }
 
-    public function getTemplate($name)
-    {
-        switch ($name) {
-            case 'short_object_description':
-                return 'Event/short_object_description.html.twig';
-            default:
-                return parent::getTemplate($name);
-        }
+        return $image;
     }
-
 
     public function prePersist($image): void
     {
@@ -68,16 +63,14 @@ class ImageAdmin extends AbstractAdmin
     }
 
     // Filter fields
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
+    protected function configureDatagridFilters(DatagridMapper $datagrid): void
     {
-        $datagridMapper
-        ;
     }
 
     // List view fields
-    protected function configureListFields(ListMapper $listMapper): void
+    protected function configureListFields(ListMapper $list): void
     {
-        $listMapper
+        $list
             ->add('filename', 'string', ['template' => 'list_image.html.twig'])
         ;
     }
