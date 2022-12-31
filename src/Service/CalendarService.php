@@ -19,8 +19,7 @@ class CalendarService
     public function __construct(
         RequestStack $request_stack,
         UrlGeneratorInterface $url_generator
-    )
-    {
+    ) {
         $this->request_stack = $request_stack;
         $this->url_generator = $url_generator;
     }
@@ -31,8 +30,7 @@ class CalendarService
         string $title,
         string $description,
         string $location
-    ): void
-    {
+    ): void {
         $this->start = (clone $start)->add($this->getTimezoneOffset());
         $this->end = (clone $end)->add($this->getTimezoneOffset());
         $this->title = 'Photo Walk Boston: ' . $title;

@@ -16,7 +16,7 @@ use App\Entity\Event;
 
 class DefaultController extends AbstractController
 {
-    const ApplicationQuestions = [
+    private const APPLICATION_QUESTIONS = [
         'Your full name',
         'Instagram link',
         'Are you primarily a photographer or model?',
@@ -50,7 +50,7 @@ class DefaultController extends AbstractController
 
         return $this->renderWithHostData('index.html.twig', [
             'events' => $events,
-            'applicationQuestions' => self::ApplicationQuestions,
+            'applicationQuestions' => self::APPLICATION_QUESTIONS,
         ]);
     }
 
@@ -62,8 +62,7 @@ class DefaultController extends AbstractController
         EntityManagerInterface $em,
         Request $request,
         CalendarService $calendar_service
-    )
-    {
+    ) {
         if (!$event = $em->find(Event::class, $event_id)) {
             return new Response(null, 404);
         }
@@ -86,7 +85,7 @@ class DefaultController extends AbstractController
             'has_access' => $has_access,
             'password_wrong' => $posted_pass && !$post_matches_pass,
             'password_right' => $posted_pass && $post_matches_pass,
-            'applicationQuestions' => array_merge(['Event: ' . $event->getTitle()], self::ApplicationQuestions),
+            'applicationQuestions' => array_merge(['Event: ' . $event->getTitle()], self::APPLICATION_QUESTIONS),
             'calendar' => [
                 'google' => $calendar_service->getGoogleLink(),
                 'outlook' => $calendar_service->getOutlookLink(),
@@ -110,8 +109,7 @@ class DefaultController extends AbstractController
         CalendarService $calendar_service,
         EntityManagerInterface $em,
         Request $request
-    ): Response
-    {
+    ): Response {
         if (!$event = $em->find(Event::class, $event_id)) {
             return new Response(null, 404);
         }
@@ -141,10 +139,9 @@ class DefaultController extends AbstractController
         string $view,
         array $parameters = array(),
         Response $response = null
-    ): Response
-    {
+    ): Response {
         $parameters['host'] = $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost();
-        $parameters['now'] = new \DateTime;
+        $parameters['now'] = new \DateTime();
         return parent::render($view, $parameters);
     }
 
@@ -155,7 +152,8 @@ class DefaultController extends AbstractController
 
         $calendar_event_description = $event->getDescription() . PHP_EOL . PHP_EOL;
         if ($event->getMeetingInstructions()) {
-            $calendar_event_description .= 'Meeting instructions: ' . $event->getMeetingInstructions() . PHP_EOL . PHP_EOL;
+            $calendar_event_description .= 'Meeting instructions: ' . $event->getMeetingInstructions() . PHP_EOL .
+                PHP_EOL;
         }
         if ($event->getParking()) {
             $calendar_event_description .= 'Parking instructions: ' . $event->getParking() . PHP_EOL . PHP_EOL;
@@ -164,7 +162,8 @@ class DefaultController extends AbstractController
             $calendar_event_description .= 'Optional model theme: ' . $event->getModelTheme() . PHP_EOL . PHP_EOL;
         }
         if ($event->getPhotographerChallenge()) {
-            $calendar_event_description .= 'Optional photographer challenge: ' . $event->getPhotographerChallenge() . PHP_EOL . PHP_EOL;
+            $calendar_event_description .= 'Optional photographer challenge: ' . $event->getPhotographerChallenge() .
+                PHP_EOL . PHP_EOL;
         }
         $calendar_event_description .= 'Photo Walk Boston is a free intermittent meetup in Boston for photographers ' .
             'and models to practice their art in a collaborative, no-pressure environment.' . PHP_EOL . PHP_EOL;

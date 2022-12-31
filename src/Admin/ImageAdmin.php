@@ -8,8 +8,8 @@ use Sonata\AdminBundle\Datagrid\{ListMapper, DatagridMapper};
 use Symfony\Component\Form\Extension\Core\Type\{TextType, FileType};
 use DateTime;
 
-class ImageAdmin extends AbstractAdmin {
-
+class ImageAdmin extends AbstractAdmin
+{
     // Form fields
     protected function configureFormFields(FormMapper $formMapper): void
     {
@@ -26,7 +26,8 @@ class ImageAdmin extends AbstractAdmin {
         ;
     }
 
-    public function upload($image) {
+    public function upload($image)
+    {
         if (!$image->getFile()) {
             return;
         }
@@ -45,7 +46,8 @@ class ImageAdmin extends AbstractAdmin {
         $image->setFilename('/images/uploads/' . $image->getFile()->getClientOriginalName());
     }
 
-    public function getTemplate($name) {
+    public function getTemplate($name)
+    {
         switch ($name) {
             case 'short_object_description':
                 return 'Event/short_object_description.html.twig';
