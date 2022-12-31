@@ -11,17 +11,20 @@ services:
 
   mysql:
     container_name: photowalkboston-mysql
-    platform: linux/x86_64
+    cap_add:
+      - SYS_NICE
+    restart: always
     image: mysql:8.0
     ports:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: photowalkboston
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: photowalkboston
       MYSQL_PASSWORD: photowalkboston
 
 volumes:
-  db_data: {}
+  db_data:
+    driver: local

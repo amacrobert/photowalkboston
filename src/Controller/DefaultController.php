@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\CalendarService;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,6 +25,10 @@ class DefaultController extends AbstractController
         'Level of experience',
         'Anything else you\'d like to share',
     ];
+
+    public function __construct(private RequestStack $requestStack)
+    {
+    }
 
     /**
      * @Route("/", name="index", methods="GET")
@@ -138,7 +143,7 @@ class DefaultController extends AbstractController
         Response $response = null
     ): Response
     {
-        $parameters['host'] = $_SERVER['HTTP_HOST'];
+        $parameters['host'] = $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost();
         $parameters['now'] = new \DateTime;
         return parent::render($view, $parameters);
     }
