@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+STAGE=${1:-stage}
+
+aws cloudformation deploy \
+  --stack-name vpc \
+  --template-file config/aws/vpc.yaml \
+  --region us-east-1 \
+  --parameter-overrides Stage=$STAGE \
+  --profile pwb-deployer
