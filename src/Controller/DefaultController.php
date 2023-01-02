@@ -30,9 +30,7 @@ class DefaultController extends AbstractController
     {
     }
 
-    /**
-     * @Route("/", name="index", methods="GET")
-     */
+    #[Route(path: '/', name: 'index', methods: 'GET')]
     public function index(EntityManagerInterface $em): Response
     {
         $dql = "
@@ -54,9 +52,7 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/events/{event_id}", name="event", methods={"GET","POST"})
-     */
+    #[Route(path: '/events/{event_id}', name: 'event', methods: ['GET', 'POST'])]
     public function event(
         string $event_id,
         EntityManagerInterface $em,
@@ -102,9 +98,7 @@ class DefaultController extends AbstractController
         return $response;
     }
 
-    /**
-     * @Route("/ics/{event_id}", name="ics", methods="GET")
-     */
+    #[Route(path: '/ics/{event_id}', name: 'ics', methods: 'GET')]
     public function icsDownload(
         string $event_id,
         CalendarService $calendar_service,

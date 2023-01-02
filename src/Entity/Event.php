@@ -8,99 +8,84 @@ use JsonSerializable;
 
 /**
  * Event
- *
- * @ORM\Table(name="event")
- * @ORM\Entity
  */
+#[ORM\Table(name: 'event')]
+#[ORM\Entity]
 class Event implements JsonSerializable
 {
     /**
      * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'IDENTITY')]
     private $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="title", type="string")
      */
+    #[ORM\Column(name: 'title', type: 'string')]
     private $title;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="date", type="datetime")
      */
+    #[ORM\Column(name: 'date', type: 'datetime')]
     private $date;
 
     /**
      * @var string|null
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'description', type: 'text', nullable: true)]
     private $description;
 
     /**
      * @var string|null
-     *
-     * @ORM\Column(name="meeting_location", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'meeting_location', type: 'text', nullable: true)]
     private $meeting_location;
 
     /**
      * @var string|null
-     *
-     * @ORM\Column(name="meeting_instructions", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'meeting_instructions', type: 'text', nullable: true)]
     private $meeting_instructions;
 
     /**
      * @var string|null
-     *
-     * @ORM\Column(name="parking", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'parking', type: 'text', nullable: true)]
     private $parking;
 
     /**
      * @var string|null
-     *
-     * @ORM\Column(name="model_theme", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'model_theme', type: 'text', nullable: true)]
     private $model_theme;
 
     /**
      * @var string|null
-     *
-     * @ORM\Column(name="photographer_challenge", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'photographer_challenge', type: 'text', nullable: true)]
     private $photographer_challenge;
 
     /**
      * @var string|null
-     *
-     * @ORM\Column(name="facebook_link", type="string", nullable=true)
      */
+    #[ORM\Column(name: 'facebook_link', type: 'string', nullable: true)]
     private $facebook_link;
 
     /**
      * @var string|null
-     *
-     * @ORM\Column(name="password", type="string", nullable=true)
      */
+    #[ORM\Column(name: 'password', type: 'string', nullable: true)]
     private $password;
 
     /**
      * @var \App\Entity\Image
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Image")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="banner_image_id", referencedColumnName="id")
-     * })
      */
+    #[ORM\JoinColumn(name: 'banner_image_id', referencedColumnName: 'id')]
+    #[ORM\ManyToOne(targetEntity: 'App\Entity\Image')]
     private $banner_image;
 
     /**
