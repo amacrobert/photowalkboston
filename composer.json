@@ -20,7 +20,8 @@
         "symfony/runtime": "*",
         "symfony/security-bundle": "*",
         "symfony/twig-bundle": "*",
-        "symfony/yaml": "*"
+        "symfony/yaml": "*",
+        "doctrine/dbal": "3.1.5"
     },
     "require-dev": {
         "phpstan/extension-installer": "^1.2",

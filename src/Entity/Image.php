@@ -2,15 +2,13 @@
 
 namespace App\Entity;
 
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use JsonSerializable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Table(name: 'image')]
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
-class Image implements JsonSerializable
+class Image implements \JsonSerializable
 {
     #[ORM\Column(name: 'id', type: 'integer')]
     #[ORM\Id]

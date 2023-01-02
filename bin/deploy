@@ -2,19 +2,34 @@
 
 STAGE=${1:-dev}
 
+# Network and security groups
 aws cloudformation deploy \
   --stack-name vpc \
   --template-file config/aws/vpc.yaml \
   --region us-east-1 \
   --profile pwb-deployer
 
+# EFS mount for SQLite
 aws cloudformation deploy \
   --stack-name filesystem-$STAGE \
   --template-file config/aws/filesystem.yaml \
   --region us-east-1 \
   --profile pwb-deployer
 
+# Serverless plugins
+serverless plugin install -n serverless-lift
+
+# Deploy the service
 serverless deploy \
   --aws-profile pwb-deployer \
   --stage $STAGE \
   --verbose
+
+# Run migrations
+serverless invoke \
+  --function console \
+  --stage $STAGE \
+  --data '"doctrine:migrations:migrate --no-interaction -vv"' \
+  --aws-profile pwb-deployer \
+  --verbose \
+  --log

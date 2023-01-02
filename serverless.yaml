@@ -15,12 +15,14 @@ provider:
   vpc:
     securityGroupIds:
       - ${cf:vpc.LambdaSecurityGroup}
+      - ${cf:filesystem-${opt:stage}.EfsSecurityGroup}
     subnetIds:
       - ${cf:vpc.PublicSubnet1}
       - ${cf:vpc.PublicSubnet2}
 
 plugins:
   - ./vendor/bref/bref
+  - serverless-lift
 
 functions:
   # This function runs the Symfony website/API
@@ -32,7 +34,7 @@ functions:
     events:
       - httpApi: '*'
     fileSystemConfig:
-      localMountPath:  /mnt/sqlite
+      localMountPath: "/mnt/sqlite"
       arn: ${cf:filesystem-${opt:stage}.FilesystemAccessPointArn}
 
   # This function let us run console commands in Lambda
@@ -43,8 +45,18 @@ functions:
       - ${bref:layer.php-82} # PHP
       - ${bref:layer.console} # The "console" layer
     fileSystemConfig:
-      localMountPath:  /mnt/sqlite
+      localMountPath: "/mnt/sqlite"
       arn: ${cf:filesystem-${opt:stage}.FilesystemAccessPointArn}
+
+constructs:
+  website:
+    type: server-side-website
+    assets:
+      '/bundles/*': 'public/bundles'
+      '/css/*': 'public/css'
+      '/iconic/*': 'public/iconic'
+      '/images/*': 'public/images'
+      '/js/*': 'public/js'
 
 package:
   patterns:
@@ -54,6 +66,7 @@ package:
     - '!public/build/**'
     - '!tests/**'
     - '!var/**'
+    - '!config/aws/**'
     # If you want to include files and folders that are part of excluded folders,
     # add them at the end
     - 'var/cache/prod/**'

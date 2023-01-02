@@ -2,16 +2,14 @@
 
 namespace App\Entity;
 
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use JsonSerializable;
 
 /**
  * Event
  */
 #[ORM\Table(name: 'event')]
 #[ORM\Entity]
-class Event implements JsonSerializable
+class Event implements \JsonSerializable
 {
     /**
      * @var int
@@ -85,7 +83,7 @@ class Event implements JsonSerializable
      * @var \App\Entity\Image
      */
     #[ORM\JoinColumn(name: 'banner_image_id', referencedColumnName: 'id')]
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\Image')]
+    #[ORM\ManyToOne(targetEntity: 'Image')]
     private $banner_image;
 
     /**

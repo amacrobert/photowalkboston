@@ -63,7 +63,7 @@ Resources:
   LambdaSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: !Sub 'lambda-security-group'
+      GroupName: 'lambda-security-group'
       GroupDescription: Allow all outbound traffic, no inbound
       SecurityGroupIngress:
         - IpProtocol: -1
@@ -71,6 +71,9 @@ Resources:
       VpcId: !Ref Vpc
 
 Outputs:
+  VpcId:
+    Value: !Ref Vpc
+    Export: { Name: VpcId }
   LambdaSecurityGroup:
     Value: !Ref LambdaSecurityGroup
     Export: { Name: LambdaSecurityGroup }

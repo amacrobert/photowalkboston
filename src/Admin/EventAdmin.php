@@ -3,12 +3,11 @@
 namespace App\Admin;
 
 use App\Entity\Event;
-use Sonata\AdminBundle\Admin\AbstractAdmin;
-use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Form\Type\AdminType;
-use Sonata\AdminBundle\Datagrid\{ListMapper, DatagridMapper};
-use Symfony\Component\Form\Extension\Core\Type\{TextType, FileType, UrlType};
 use DateTime;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
+use Sonata\AdminBundle\Datagrid\{DatagridMapper, ListMapper};
+use Sonata\AdminBundle\Form\FormMapper;
+use Symfony\Component\Form\Extension\Core\Type\{UrlType};
 
 /**
  * @extends AbstractAdmin<Event>
