@@ -1,0 +1,29 @@
+Resources:
+
+  Filesystem:
+    Type: AWS::EFS::FileSystem
+
+  FilesystemAccessPoint:
+    Type: AWS::EFS::AccessPoint
+    Properties:
+      FileSystemId: !Ref Filesystem
+
+  FilesystemMountTarget1:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId: !Ref Filesystem
+      SecurityGroups:
+        - !ImportValue LambdaSecurityGroup
+      SubnetId: !ImportValue PublicSubnet1
+
+  FilesystemMountTarget2:
+    Type: AWS::EFS::MountTarget
+    Properties:
+      FileSystemId: !Ref Filesystem
+      SecurityGroups:
+        - !ImportValue LambdaSecurityGroup
+      SubnetId: !ImportValue PublicSubnet2
+
+Outputs:
+  FilesystemAccessPointArn:
+    Value: !GetAtt FilesystemAccessPoint.Arn

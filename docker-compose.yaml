@@ -8,6 +8,7 @@ services:
     command: "php"
     volumes:
       - .:/var/task
+      - ./var/sqlite:/mnt/sqlite
 
   mysql:
     container_name: photowalkboston-mysql

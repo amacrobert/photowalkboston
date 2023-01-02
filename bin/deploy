@@ -1,10 +1,20 @@
 #!/usr/bin/env bash
 
-STAGE=${1:-stage}
+STAGE=${1:-dev}
 
 aws cloudformation deploy \
   --stack-name vpc \
   --template-file config/aws/vpc.yaml \
   --region us-east-1 \
-  --parameter-overrides Stage=$STAGE \
   --profile pwb-deployer
+
+aws cloudformation deploy \
+  --stack-name filesystem-$STAGE \
+  --template-file config/aws/filesystem.yaml \
+  --region us-east-1 \
+  --profile pwb-deployer
+
+serverless deploy \
+  --aws-profile pwb-deployer \
+  --stage $STAGE \
+  --verbose

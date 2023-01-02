@@ -1,4 +1,16 @@
 {
+    "bref/symfony-bridge": {
+        "version": "0.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "0.1",
+            "ref": "073e577186ef96e4f26df1f8a3dc14a48826d364"
+        },
+        "files": [
+            "serverless.yml"
+        ]
+    },
     "doctrine/annotations": {
         "version": "1.14",
         "recipe": {

@@ -14,6 +14,13 @@ Resources:
       CidrBlock: 10.0.1.0/24
       VpcId: !Ref Vpc
 
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: us-east-1b
+      CidrBlock: 10.0.2.0/24
+      VpcId: !Ref Vpc
+
   Eip:
     Type: AWS::EC2::EIP
     Properties:
@@ -46,6 +53,12 @@ Resources:
       SubnetId: !Ref PublicSubnet1
       RouteTableId: !Ref PublicRouteTable
 
+  SubnetRouteTableAssociationPublic2:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet2
+      RouteTableId: !Ref PublicRouteTable
+
   # Lambda security group
   LambdaSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -56,3 +69,14 @@ Resources:
         - IpProtocol: -1
           CidrIp: 127.0.0.1/32
       VpcId: !Ref Vpc
+
+Outputs:
+  LambdaSecurityGroup:
+    Value: !Ref LambdaSecurityGroup
+    Export: { Name: LambdaSecurityGroup }
+  PublicSubnet1:
+    Value: !Ref PublicSubnet1
+    Export: { Name: PublicSubnet1 }
+  PublicSubnet2:
+    Value: !Ref PublicSubnet2
+    Export: { Name: PublicSubnet2 }
