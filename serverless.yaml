@@ -52,11 +52,11 @@ constructs:
   website:
     type: server-side-website
     assets:
-      '/bundles/*': 'public/bundles'
-      '/css/*': 'public/css'
-      '/iconic/*': 'public/iconic'
-      '/images/*': 'public/images'
-      '/js/*': 'public/js'
+      '/bundles/*': public/bundles
+      '/css/*': public/css
+      '/iconic/*': public/iconic
+      '/images/*': public/images
+      '/js/*': public/js
 
 package:
   patterns:

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e # Stop the deployment if any individual step fails
+
 STAGE=${1:-dev}
 
 # Network and security groups
