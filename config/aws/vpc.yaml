@@ -21,11 +21,6 @@ Resources:
       CidrBlock: 10.0.2.0/24
       VpcId: !Ref Vpc
 
-  Eip:
-    Type: AWS::EC2::EIP
-    Properties:
-      Domain: vpc
-
   InternetGateway:
     Type: AWS::EC2::InternetGateway
 
