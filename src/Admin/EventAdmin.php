@@ -66,7 +66,8 @@ class EventAdmin extends AbstractAdmin
                                 <li>Aspect ratio roughly 3:2</li>
                                 <li>File size < 600KB</li>
                             </ul>
-                        </p>'
+                        </p>',
+                    'help_html' => true,
                 ])
             ->end()
 

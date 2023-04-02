@@ -36,14 +36,6 @@ Resources:
         - !Ref EfsSecurityGroup
       SubnetId: !ImportValue PublicSubnet1
 
-  FilesystemMountTarget2:
-    Type: AWS::EFS::MountTarget
-    Properties:
-      FileSystemId: !Ref Filesystem
-      SecurityGroups:
-        - !Ref EfsSecurityGroup
-      SubnetId: !ImportValue PublicSubnet2
-
 Outputs:
   FilesystemAccessPointArn:
     Value: !GetAtt FilesystemAccessPoint.Arn

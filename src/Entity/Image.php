@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -28,7 +29,7 @@ class Image implements \JsonSerializable
     private $updated;
 
     // unmapped - used for temp upload
-    protected ?UploadedFile $file;
+    protected ?UploadedFile $file = null;
 
     public function __toString()
     {
