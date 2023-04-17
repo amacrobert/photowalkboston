@@ -52,7 +52,7 @@ class ImageAdmin extends AbstractAdmin
         ///////////////////////////////
 
         // If an object with the same key exists in the bucket already, append a number to the end of the filename
-        $originalFilename  =$image->getFile()->getClientOriginalName();
+        $originalFilename = $image->getFile()->getClientOriginalName();
         $filename = $originalFilename;
         $filenameParts = explode('.', $originalFilename, 2);
         $extension = $filenameParts[1] ?? '';
