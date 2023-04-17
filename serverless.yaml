@@ -75,7 +75,7 @@ constructs:
   website:
     type: server-side-website
     domain: ${self:custom.domain.${opt:stage}}
-    certificate: ${ssm:/${opt:stage}/route53/photowalkboston/certificate}
+    certificate: ${ssm:/acm/photowalkboston/certificate/arn}
     assets:
       '/bundles/*': public/bundles
       '/css/*': public/css

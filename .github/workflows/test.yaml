@@ -1,0 +1,34 @@
+name: Integration Tests
+on:
+  pull_request:
+    branches: [main]
+
+env:
+  APP_ENV: test
+
+jobs:
+  integration-tests:
+    name: Linting, Static Analysis, and Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Docker compose
+        run: docker-compose up --build -d
+
+      - name: Install packages
+        run: docker exec photowalkboston composer install --no-progress --no-interaction --prefer-dist
+
+      - name: Code linting
+        run: docker exec photowalkboston composer sniff
+
+      - name: Static analysis
+        run: docker exec photowalkboston composer stan
+
+      - name: Migrate database
+        run: docker exec photowalkboston composer migrate
+
+      - name: Unit tests
+        run: docker exec photowalkboston composer test

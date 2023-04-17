@@ -79,7 +79,8 @@
         "test": "bin/phpunit --testdox",
         "sniff": "vendor/bin/phpcs",
         "sniff-fix": "vendor/bin/phpcbf",
-        "stan": "vendor/bin/phpstan"
+        "stan": "vendor/bin/phpstan",
+        "migrate": "bin/console doctrine:migrations:migrate --no-interaction"
     },
     "conflict": {
         "symfony/symfony": "*"
