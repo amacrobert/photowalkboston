@@ -12,9 +12,11 @@ provider:
   deploymentMethod: direct
   environment:
     # Symfony environment variables
-    APP_ENV: dev
+    APP_ENV: ${opt:stage}
     UPLOADS_BUCKET: !Ref UploadsBucket
     UPLOADS_CLOUDFRONT_URL: !Sub 'https://${UploadsDistribution.DomainName}'
+    ADMIN_USERNAME: ${self:custom.${opt:stage}.credentials.username}
+    ADMIN_PASSWORD: ${self:custom.${opt:stage}.credentials.password}
   vpc:
     securityGroupIds:
       - ${cf:vpc.LambdaSecurityGroup}
@@ -43,9 +45,15 @@ plugins:
 custom:
   logRetentionInDays: 30
   hostedZoneId: ${ssm:/route53/photowalkboston/hostedZoneId}
-  domain:
-    dev: dev.photowalkboston.com
-    prod: photowalkboston.com
+  dev:
+    domain: dev.photowalkboston.com
+    credentials:
+      username: admin
+      password: 123
+
+  prod:
+    domain: photowalkboston.com
+    credentials: ${ssm:/aws/reference/secretsmanager/prod/photowalkboston/admin-credentials}
 
 functions:
   # This function runs the Symfony website/API
@@ -74,7 +82,7 @@ functions:
 constructs:
   website:
     type: server-side-website
-    domain: ${self:custom.domain.${opt:stage}}
+    domain: ${self:custom.${opt:stage}.domain}
     certificate: ${ssm:/acm/photowalkboston/certificate/arn}
     assets:
       '/bundles/*': public/bundles
@@ -160,7 +168,7 @@ resources:
       Type: AWS::Route53::RecordSet
       Properties:
         HostedZoneId: ${self:custom.hostedZoneId}
-        Name: ${self:custom.domain.${opt:stage}}
+        Name: ${self:custom.${opt:stage}.domain}
         Type: A
         AliasTarget:
           HostedZoneId: Z2FDTNDATAQYW2 # Cloudfront Route53 HostedZoneId. This does not change.
