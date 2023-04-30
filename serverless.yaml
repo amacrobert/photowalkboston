@@ -154,15 +154,6 @@ resources:
               Cookies:
                 Forward: all
 
-    # This enables lambda to talk to the uploads bucket without needing a NAT gateway
-    UploadsBucketS3GatewayEndpoint:
-      Type: AWS::EC2::VPCEndpoint
-      Properties:
-        RouteTableIds:
-          - ${cf:vpc.PublicRouteTable}
-        ServiceName: com.amazonaws.${self:provider.region}.s3
-        VpcId: ${cf:vpc.VpcId}
-
     # Website domain
     Route53Record:
       Type: AWS::Route53::RecordSet
