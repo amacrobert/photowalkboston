@@ -52,6 +52,15 @@ Resources:
           CidrIp: 127.0.0.1/32
       VpcId: !Ref Vpc
 
+  # This enables lambda to talk to the uploads bucket without needing a NAT gateway
+  UploadsBucketS3GatewayEndpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      RouteTableIds:
+        - !Ref PublicRouteTable
+      ServiceName: com.amazonaws.us-east-1.s3
+      VpcId: !Ref Vpc
+
 Outputs:
   VpcId:
     Value: !Ref Vpc

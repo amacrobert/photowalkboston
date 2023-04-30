@@ -15,8 +15,8 @@ provider:
     APP_ENV: ${opt:stage}
     UPLOADS_BUCKET: !Ref UploadsBucket
     UPLOADS_CLOUDFRONT_URL: !Sub 'https://${UploadsDistribution.DomainName}'
-    ADMIN_USERNAME: ${self:custom.${opt:stage}.credentials.username}
-    ADMIN_PASSWORD: ${self:custom.${opt:stage}.credentials.password}
+    ADMIN_USERNAME: ${self:custom.${opt:stage}.credentials.ADMIN_USERNAME}
+    ADMIN_PASSWORD: ${self:custom.${opt:stage}.credentials.ADMIN_PASSWORD}
   vpc:
     securityGroupIds:
       - ${cf:vpc.LambdaSecurityGroup}
@@ -48,8 +48,8 @@ custom:
   dev:
     domain: dev.photowalkboston.com
     credentials:
-      username: admin
-      password: 123
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: 123
 
   prod:
     domain: photowalkboston.com
@@ -153,15 +153,6 @@ resources:
               QueryString: 'false'
               Cookies:
                 Forward: all
-
-    # This enables lambda to talk to the uploads bucket without needing a NAT gateway
-    UploadsBucketS3GatewayEndpoint:
-      Type: AWS::EC2::VPCEndpoint
-      Properties:
-        RouteTableIds:
-          - ${cf:vpc.PublicRouteTable}
-        ServiceName: com.amazonaws.${self:provider.region}.s3
-        VpcId: ${cf:vpc.VpcId}
 
     # Website domain
     Route53Record:

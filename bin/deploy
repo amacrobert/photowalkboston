@@ -3,6 +3,7 @@
 set -e # Stop the deployment if any individual step fails
 
 STAGE=${1:-dev}
+AWS_PROFILE_OPTION=$([ ${2} ] && echo "--profile "${2} || echo "")
 
 # Network and security groups
 echo "Deploying VPC stack"
@@ -10,7 +11,7 @@ aws cloudformation deploy \
   --stack-name vpc \
   --template-file config/aws/vpc.yaml \
   --region us-east-1 \
-  --profile pwb-deployer
+  $AWS_PROFILE_OPTION
 
 # EFS mount for SQLite
 echo "Deploying EFS stack"
@@ -18,7 +19,7 @@ aws cloudformation deploy \
   --stack-name filesystem-$STAGE \
   --template-file config/aws/filesystem.yaml \
   --region us-east-1 \
-  --profile pwb-deployer
+  $AWS_PROFILE_OPTION
 
 # Serverless plugins
 serverless plugin install -n serverless-lift
@@ -28,7 +29,7 @@ serverless plugin install -n serverless-plugin-log-retention
 
 # Deploy the service
 serverless deploy \
-  --aws-profile pwb-deployer \
+  $AWS_PROFILE_OPTION \
   --stage $STAGE \
   --verbose
 
@@ -37,6 +38,6 @@ serverless invoke \
   --function console \
   --stage $STAGE \
   --data '"doctrine:migrations:migrate --no-interaction -vv"' \
-  --aws-profile pwb-deployer \
+  $AWS_PROFILE_OPTION \
   --verbose \
   --log
