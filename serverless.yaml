@@ -15,8 +15,8 @@ provider:
     APP_ENV: ${opt:stage}
     UPLOADS_BUCKET: !Ref UploadsBucket
     UPLOADS_CLOUDFRONT_URL: !Sub 'https://${UploadsDistribution.DomainName}'
-    ADMIN_USERNAME: ${self:custom.${opt:stage}.credentials.username}
-    ADMIN_PASSWORD: ${self:custom.${opt:stage}.credentials.password}
+    ADMIN_USERNAME: ${self:custom.${opt:stage}.credentials.ADMIN_USERNAME}
+    ADMIN_PASSWORD: ${self:custom.${opt:stage}.credentials.ADMIN_PASSWORD}
   vpc:
     securityGroupIds:
       - ${cf:vpc.LambdaSecurityGroup}
