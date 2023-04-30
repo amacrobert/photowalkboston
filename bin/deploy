@@ -6,12 +6,12 @@ STAGE=${1:-dev}
 AWS_PROFILE_OPTION=$([ ${2} ] && echo "--profile "${2} || echo "")
 
 # Network and security groups
-# echo "Deploying VPC stack"
-# aws cloudformation deploy \
-#   --stack-name vpc \
-#   --template-file config/aws/vpc.yaml \
-#   --region us-east-1 \
-#   $AWS_PROFILE_OPTION
+echo "Deploying VPC stack"
+aws cloudformation deploy \
+  --stack-name vpc \
+  --template-file config/aws/vpc.yaml \
+  --region us-east-1 \
+  $AWS_PROFILE_OPTION
 
 # EFS mount for SQLite
 echo "Deploying EFS stack"
