@@ -3,9 +3,6 @@ on:
   push:
     branches: [main]
 
-env:
-  APP_ENV: prod
-
 jobs:
   deploy:
     name: Prod
@@ -19,7 +16,7 @@ jobs:
         run: docker-compose up --build -d
 
       - name: Install packages
-        run: docker exec photowalkboston composer install --no-progress --no-interaction --prefer-dist --no-dev
+        run: docker exec photowalkboston bash -c "APP_ENV=prod composer install --no-progress --no-interaction --prefer-dist --no-dev"
 
       - name: Serverless deploy
         uses: serverless/github-action@v3.1
