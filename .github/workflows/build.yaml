@@ -1,10 +1,14 @@
+name: Deploy
 on:
   push:
     branches: [main]
 
+env:
+  APP_ENV: prod
+
 jobs:
   deploy:
-    name: Linting, Static Analysis, and Unit Tests
+    name: Prod
     runs-on: ubuntu-latest
 
     steps:

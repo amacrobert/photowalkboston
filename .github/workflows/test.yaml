@@ -7,7 +7,7 @@ env:
   APP_ENV: test
 
 jobs:
-  integration-tests:
+  tests:
     name: Linting, Static Analysis, and Unit Tests
     runs-on: ubuntu-latest
 
