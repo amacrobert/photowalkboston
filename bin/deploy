@@ -5,6 +5,7 @@ set -e # Stop the deployment if any individual step fails
 STAGE=${1:-dev}
 
 # Network and security groups
+echo "Deploying VPC stack"
 aws cloudformation deploy \
   --stack-name vpc \
   --template-file config/aws/vpc.yaml \
@@ -12,6 +13,7 @@ aws cloudformation deploy \
   --profile pwb-deployer
 
 # EFS mount for SQLite
+echo "Deploying EFS stack"
 aws cloudformation deploy \
   --stack-name filesystem-$STAGE \
   --template-file config/aws/filesystem.yaml \
@@ -20,6 +22,9 @@ aws cloudformation deploy \
 
 # Serverless plugins
 serverless plugin install -n serverless-lift
+serverless plugin install -n serverless-plugin-log-retention
+
+# TODO: Build via Dockerfile and copy build out
 
 # Deploy the service
 serverless deploy \

@@ -57,8 +57,7 @@ class DefaultController extends AbstractController
         EntityManagerInterface $em,
         Request $request,
         CalendarService $calendar_service
-    ): Response
-    {
+    ): Response {
         if (!$event = $em->find(Event::class, $event_id)) {
             return new Response(null, 404);
         }

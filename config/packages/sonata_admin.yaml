@@ -14,14 +14,15 @@ sonata_block:
 services:
     admin.event:
         class: App\Admin\EventAdmin
-        arguments: [~, App\Entity\Event, ~]
+        autowire: true
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Events, group: Entities }
-        public: true
+            - { name: sonata.admin, model_class: App\Entity\Event, manager_type: orm, label: Events, group: Entities }
 
     admin.image:
         class: App\Admin\ImageAdmin
-        arguments: [~, App\Entity\Image, ~]
+        arguments:
+            $uploadsBucket: '%env(UPLOADS_BUCKET)%'
+            $cloudfrontUrl: '%env(UPLOADS_CLOUDFRONT_URL)%'
+        autowire: true
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Images, group: Entities }
-        public: true
+            - { name: sonata.admin, model_class: App\Entity\Image, manager_type: orm, label: Images, group: Entities }
