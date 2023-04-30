@@ -21,7 +21,7 @@ jobs:
         run: docker exec photowalkboston bash -c "APP_ENV=prod composer install --no-progress --no-interaction --prefer-dist --no-dev"
 
       - name: Setup serverless framework
-        uses: serverless/github-action@v3.1
+        run: npm i -g serverless@3
 
       - name: Deploy
         run: bin/deploy prod
