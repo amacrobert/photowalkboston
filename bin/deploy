@@ -11,7 +11,7 @@ aws cloudformation deploy \
   --stack-name vpc \
   --template-file config/aws/vpc.yaml \
   --region us-east-1 \
-  --profile pwb-deployer
+  $AWS_PROFILE_OPTION
 
 # EFS mount for SQLite
 echo "Deploying EFS stack"
@@ -19,7 +19,7 @@ aws cloudformation deploy \
   --stack-name filesystem-$STAGE \
   --template-file config/aws/filesystem.yaml \
   --region us-east-1 \
-  --profile pwb-deployer
+  $AWS_PROFILE_OPTION
 
 # Serverless plugins
 serverless plugin install -n serverless-lift
@@ -38,6 +38,6 @@ serverless invoke \
   --function console \
   --stage $STAGE \
   --data '"doctrine:migrations:migrate --no-interaction -vv"' \
-  --aws-profile pwb-deployer \
+  $AWS_PROFILE_OPTION \
   --verbose \
   --log
