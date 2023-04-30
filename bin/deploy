@@ -3,6 +3,7 @@
 set -e # Stop the deployment if any individual step fails
 
 STAGE=${1:-dev}
+AWS_PROFILE_OPTION=$([ ${2} ] && echo "--profile "${2} || echo "")
 
 # Network and security groups
 echo "Deploying VPC stack"
@@ -28,7 +29,7 @@ serverless plugin install -n serverless-plugin-log-retention
 
 # Deploy the service
 serverless deploy \
-  --aws-profile pwb-deployer \
+  $AWS_PROFILE_OPTION \
   --stage $STAGE \
   --verbose
 
