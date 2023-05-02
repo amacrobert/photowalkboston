@@ -14,10 +14,13 @@
         "phpstan/phpstan": "^1.9",
         "sonata-project/admin-bundle": "^4.13",
         "sonata-project/doctrine-orm-admin-bundle": "^4.3",
+        "symfony/amazon-mailer": "*",
+        "symfony/amazon-sqs-messenger": "6.2.*",
         "symfony/console": "*",
         "symfony/dotenv": "*",
         "symfony/flex": "^2.0",
         "symfony/framework-bundle": "*",
+        "symfony/messenger": "6.2.*",
         "symfony/monolog-bundle": "^3.8",
         "symfony/runtime": "*",
         "symfony/security-bundle": "*",
@@ -88,7 +91,8 @@
     "extra": {
         "symfony": {
             "require": "6.2.*",
-            "allow-contrib": true
+            "allow-contrib": true,
+            "docker": false
         }
     }
 }

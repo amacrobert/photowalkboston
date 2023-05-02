@@ -38,7 +38,6 @@ class CalendarService
     public function getGoogleLink(): string
     {
         $datetime_format = 'Ymd\THis\Z';
-        // dd($this->start->format($datetime_format), $this->end->format($datetime_format));
 
         return
             'https://calendar.google.com/calendar/render' .
