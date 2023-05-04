@@ -1,0 +1,26 @@
+<h2>{{ application.name }}'s Photo Walk Boston application</h2>
+
+{% if application.event %}
+    <h3>Event:</h3>
+    <p><a href="{{ application.event.link }}">{{ application.event.title }}</a></p>
+{% endif %}
+
+<h3>Instagram:</h3>
+<p>{{ application.instagram|default('[No answer]') }}</p>
+
+<h3>Are you primarily a photographer or model?</h3>
+<p>{{ application.pursuit }}</p>
+
+<h3>How (or through whom) did you hear about us?</h3>
+<p>{{ application.referral|default('[No answer]') }}</p>
+
+<h3>Website link:</h3>
+<p>{{ application.website|default('[No answer]') }}</p>
+
+<h3>Level of experience:</h3>
+<p>{{ application.experience|default('[No answer]') }}</p>
+
+<h3>Anything else you'd like to share:</h3>
+<p>{{ application.openResponse|default('[No answer]')|nl2br }}</p>
+
+<small><a href="https://photowalkboston.com/admin/app/application/{{ application.id }}/show">[show application]</a> (admin only)</small>

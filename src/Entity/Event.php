@@ -87,6 +87,11 @@ class Event implements \JsonSerializable
     #[ORM\ManyToOne(targetEntity: 'Image')]
     private $banner_image;
 
+    public function getLink(): string
+    {
+        return 'https://photowalkboston.com/events/' . $this->getId();
+    }
+
     /**
      * @return array<string, mixed>
      */

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Service\ApplicationService;
 use App\Service\CalendarService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,16 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
-    private const APPLICATION_QUESTIONS = [
-        'Your full name',
-        'Instagram link',
-        'Are you primarily a photographer or model?',
-        'How did you hear about us?',
-        'Website link',
-        'Level of experience',
-        'Anything else you\'d like to share',
-    ];
-
     public function __construct(private RequestStack $requestStack)
     {
     }
@@ -45,10 +36,7 @@ class DefaultController extends AbstractController
             ->setMaxResults(3);
         $events = $query->getResult();
 
-        return $this->renderWithHostData('index.html.twig', [
-            'events' => $events,
-            'applicationQuestions' => self::APPLICATION_QUESTIONS,
-        ]);
+        return $this->renderWithHostData('index.html.twig', ['events' => $events]);
     }
 
     #[Route(path: '/events/{event_id}', name: 'event', methods: ['GET', 'POST'])]
@@ -56,7 +44,8 @@ class DefaultController extends AbstractController
         string $event_id,
         EntityManagerInterface $em,
         Request $request,
-        CalendarService $calendar_service
+        CalendarService $calendar_service,
+        ApplicationService $applicationService,
     ): Response {
         if (!$event = $em->find(Event::class, $event_id)) {
             return new Response(null, 404);
@@ -77,10 +66,11 @@ class DefaultController extends AbstractController
 
         $response = $this->renderWithHostData('event.html.twig', [
             'event' => $event,
+            'eventId' => $event->getId(),
             'has_access' => $has_access,
             'password_wrong' => $posted_pass && !$post_matches_pass,
             'password_right' => $posted_pass && $post_matches_pass,
-            'applicationQuestions' => array_merge(['Event: ' . $event->getTitle()], self::APPLICATION_QUESTIONS),
+            'applicationPending' => $request->cookies->has('applicationPending'),
             'calendar' => [
                 'google' => $calendar_service->getGoogleLink(),
                 'outlook' => $calendar_service->getOutlookLink(),

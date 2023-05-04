@@ -36,12 +36,12 @@
             {% endfor %}
             {% if events is empty %}
                 <p class="lead">Currently, there are no publicly scheduled events.</p>
-                <p>If you are interested in joining upcoming Photo Walks, email {% include 'partials/apply_email_link.html.twig' %} and include the following information:</p>
-                <ul>
-                    {% for question in applicationQuestions %}
-                        <li>{{question}}</li>
-                    {% endfor %}
-                </ul>
+                <p>Interested in upcoming events?</p>
+
+                <button type="button" class="btn btn-lg btn-success mb-3" data-bs-toggle="modal" data-bs-target="#applicationModal">
+                    Apply to Join
+                </button>
+
                 <p>If approved, you will be contacted shortly with details on the next photo walk. Then, if you show up in person and put your best foot forward, you'll be invited to join the closed Photo Walk Wednesdays Facebook group and attend any future Photo Walk Wednesday events you like.</p>
             {% endif %}
         </div>
