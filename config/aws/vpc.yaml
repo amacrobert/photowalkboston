@@ -65,6 +65,7 @@ Resources:
   SESGatewayEndpoint:
     Type: AWS::EC2::VPCEndpoint
     Properties:
+      VpcEndpointType: Interface
       RouteTableIds:
         - !Ref PublicRouteTable
       ServiceName: com.amazonaws.us-east-1.email-smtp
