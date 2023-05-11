@@ -19,7 +19,7 @@ provider:
     ADMIN_PASSWORD: ${self:custom.${opt:stage}.credentials.ADMIN_PASSWORD}
     SMTP_USERNAME: ${self:custom.${opt:stage}.smtp.SMTP_USERNAME}
     SMTP_PASSWORD: ${self:custom.${opt:stage}.smtp.SMTP_PASSWORD}
-vpc:
+  vpc:
     securityGroupIds:
       - ${cf:vpc.LambdaSecurityGroup}
       - ${cf:filesystem-${opt:stage}.EfsSecurityGroup}
