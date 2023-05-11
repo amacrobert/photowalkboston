@@ -28,7 +28,7 @@ class ApplicationController extends AbstractController
             $this->addFlash(
                 'success',
                 sprintf(
-                    '<strong>We got your application!</strong>' .
+                    '<strong>We got your application!</strong> ' .
                     'It is now under review. If approved, you will be contacted at %s with %s.',
                     $application->getEmail(),
                     $application->getEvent() ? 'the password' : 'further instructions',
