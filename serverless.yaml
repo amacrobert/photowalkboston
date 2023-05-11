@@ -64,7 +64,7 @@ custom:
   prod:
     domain: photowalkboston.com
     credentials: ${ssm:/aws/reference/secretsmanager/prod/photowalkboston/admin-credentials}
-    smtp: ${ssm:/aws/reference/secretsmanager/prod/photowalkboston/smtp-credentials}
+    smtp: ${ssm:/aws/reference/secretsmanager/prod/photowalkboston/mailer-credentials}
 
 functions:
   # This function runs the Symfony website/API
