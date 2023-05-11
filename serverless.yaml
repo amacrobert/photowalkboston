@@ -17,7 +17,9 @@ provider:
     UPLOADS_CLOUDFRONT_URL: !Sub 'https://${UploadsDistribution.DomainName}'
     ADMIN_USERNAME: ${self:custom.${opt:stage}.credentials.ADMIN_USERNAME}
     ADMIN_PASSWORD: ${self:custom.${opt:stage}.credentials.ADMIN_PASSWORD}
-  vpc:
+    SMTP_USERNAME: ${self:custom.${opt:stage}.smtp.SMTP_USERNAME}
+    SMTP_PASSWORD: ${self:custom.${opt:stage}.smtp.SMTP_PASSWORD}
+vpc:
     securityGroupIds:
       - ${cf:vpc.LambdaSecurityGroup}
       - ${cf:filesystem-${opt:stage}.EfsSecurityGroup}
@@ -55,10 +57,14 @@ custom:
     credentials:
       ADMIN_USERNAME: admin
       ADMIN_PASSWORD: 123
+    smtp:
+      SMTP_USERNAME: ''
+      SMTP_PASSWORD: ''
 
   prod:
     domain: photowalkboston.com
     credentials: ${ssm:/aws/reference/secretsmanager/prod/photowalkboston/admin-credentials}
+    smtp: ${ssm:/aws/reference/secretsmanager/prod/photowalkboston/smtp-credentials}
 
 functions:
   # This function runs the Symfony website/API
