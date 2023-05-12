@@ -194,6 +194,7 @@ dt:after {
 .team-card .social-btn {
     font-size: 18px;
     margin: 0 3px;
+    text-decoration: none;
 }
 
 .team-card .social-btn:hover {
