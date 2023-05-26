@@ -96,6 +96,16 @@ constructs:
       '/iconic/*': public/iconic
       '/images/*': public/images
       '/js/*': public/js
+      '/android-chrome-192x192.png': public/android-chrome-192x192.png
+      '/android-chrome-256x256.png': public/android-chrome-256x256.png
+      '/apple-touch-icon.png': public/apple-touch-icon.png
+      '/browserconfig.xml': public/browserconfig.xml
+      '/favicon.ico': public/favicon.ico
+      '/favicon-16x16.png': public/favicon-16x16.png
+      '/favicon-32x32.png': public/favicon-32x32.png
+      '/mstile-150x150.png': public/mstile-150x150.png
+      '/safari-pinned-tab.svg': public/safari-pinned-tab.svg
+      '/site.webmanifest': public/site.webmanifest
 
 package:
   patterns:
