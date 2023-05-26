@@ -8,8 +8,6 @@ provider:
   region: us-east-1
   # The stage of the application, e.g. dev, production, staging… ('dev' is the default)
   stage: dev
-  runtime: provided.al2
-  deploymentMethod: direct
   environment:
     # Symfony environment variables
     APP_ENV: ${opt:stage}
@@ -70,9 +68,8 @@ functions:
   # This function runs the Symfony website/API
   web:
     handler: public/index.php
+    runtime: php-82
     timeout: 28 # in seconds (API Gateway has a timeout of 29 seconds)
-    layers:
-      - ${bref:layer.php-82-fpm}
     events:
       - httpApi: '*'
     fileSystemConfig:
@@ -82,10 +79,8 @@ functions:
   # This function let us run console commands in Lambda
   console:
     handler: bin/console
+    runtime: php-82-console
     timeout: 120 # in seconds
-    layers:
-      - ${bref:layer.php-82} # PHP
-      - ${bref:layer.console} # The "console" layer
     fileSystemConfig:
       localMountPath: "/mnt/sqlite"
       arn: ${cf:filesystem-${opt:stage}.FilesystemAccessPointArn}
