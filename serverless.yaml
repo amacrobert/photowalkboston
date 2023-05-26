@@ -68,7 +68,7 @@ functions:
   # This function runs the Symfony website/API
   web:
     handler: public/index.php
-    runtime: php-82
+    runtime: php-82-fpm
     timeout: 28 # in seconds (API Gateway has a timeout of 29 seconds)
     events:
       - httpApi: '*'
