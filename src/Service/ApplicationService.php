@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-use App\Entity\Application;
+use App\Entity\Application\Application;
 use App\Entity\Event;
 use App\Message\ApplicationSubmitted;
 use Doctrine\ORM\EntityManagerInterface;

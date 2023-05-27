@@ -2,7 +2,7 @@
 
 namespace App\MessageHandler;
 
-use App\Entity\Application;
+use App\Entity\Application\Application;
 use App\Message\ApplicationSubmitted;
 use App\Service\EmailService;
 use Doctrine\ORM\EntityManagerInterface;
