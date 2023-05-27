@@ -66,15 +66,33 @@ This VPC has a single subnet, which is public.
 Lambdas in a VPC cannot by default to talk to the Internet (even in a public subnet), since they never have a public IP
 address. This Lambda needs access to S3 for admins to manage uploads. Since S3 is available only over the Internet, the
 Lambda can't talk to it by default. To solve the issue, I added a VPC Gateway Endpoint for S3 to the subnet, allowing
-the Lambda to communicate with S3. 
+the Lambda to communicate with S3. I also added a VPC Interface endpoint for communication with SES, allowing the Lambda
+to send emails.
 
 A more common approach to networking would involve putting the Lambda in private subnets that connect to the Internet
 through a NAT Gateway in a public subnet. I chose not to do use this approach to keep costs at a bare minimum, even
-though it means the Lambda cannot originate requests to (most of) the Internet. 
-
-### Local development
-
-A Dockerfile and docker-compose file allow for local 
+though it means the Lambda cannot originate requests to (most of) the Internet.
 
 ### CI/CD
 
+#### Continuous Integration
+
+CI and CD pipelines run in GitHub Actions.
+
+CI pipelines are kicked off automatically when a PR is opened against `main`. Checks include linting, static analysis,
+and unit/functional testing.
+
+#### Continuous Deployment
+
+The CD pipeline runs when `main` receives a push (for example, when a PR is merged).
+
+This repo uses Serverless Framework to deploy the Lambda application and other cloud resources to AWS.
+
+Additionally, deployments will update VPC and EFS resources for the application if any changes were made to their IaC,
+which is stored as CloudFormation templates.
+
+### Local development
+
+A Dockerfile and docker-compose file allow developers to run this locally.
+
+The image is based off of Bref images, which model what the inside of a Lambda looks like.
