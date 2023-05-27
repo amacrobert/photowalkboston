@@ -7,6 +7,7 @@ use DateTime;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\{DatagridMapper, ListMapper};
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\Form\Type\DateTimePickerType;
 use Symfony\Component\Form\Extension\Core\Type\{UrlType};
 
 /**
@@ -26,7 +27,11 @@ class EventAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
         $event = $this->getSubject();
-        $date_options = ['help' => 'The date and meeting time of the event; for 6:30pm, enter 18:30'];
+        $date_options = [
+            'help' => 'The date and meeting time of the event; for 6:30pm, enter 18:30',
+            'dp_minute_stepping' => 15,
+            'dp_use_seconds' => false,
+        ];
 
         if (!$event->getId()) {
             $date_options['data'] = new DateTime('next Wednesday 6:30pm');
@@ -53,7 +58,7 @@ class EventAdmin extends AbstractAdmin
                         'shots that people can expect here. Keep it under 100 words.',
                     'attr' => ['style' => 'min-height: 130px']
                 ])
-                ->add('date', null, $date_options)
+                ->add('date', DateTimePickerType::class, $date_options)
                 ->add('banner_image', 'Sonata\AdminBundle\Form\Type\ModelListType', [
                     'required' => false,
                     'help' => '
