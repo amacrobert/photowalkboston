@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Application;
 
+use App\Entity\Event;
 use App\Repository\ApplicationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,12 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\HasLifecycleCallbacks]
 class Application
 {
-    public const STATUSES = [
-        'Pending' => 'pending',
-        'Accepted' => 'accepted',
-        'Rejected' => 'rejected',
-    ];
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -183,13 +178,17 @@ class Application
         return $this->status;
     }
 
-    public function setStatus(?string $status): self
+    public function setStatus(ApplicationStatus|string|null $status): self
     {
-        if (!in_array($status, self::STATUSES)) {
-            throw new \LogicException(sprintf('Unknown status "%s"', $status));
-        }
+        if ($status instanceof ApplicationStatus) {
+            $this->status = $status->value;
+        } else {
+            if (!in_array($status, array_column(ApplicationStatus::cases(), 'value'))) {
+                throw new \ValueError(sprintf('Unknown status "%s"', $status));
+            }
 
-        $this->status = $status;
+            $this->status = $status;
+        }
 
         return $this;
     }

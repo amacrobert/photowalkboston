@@ -2,8 +2,7 @@
 
 namespace App\Service;
 
-use App\Entity\Application;
-use App\Entity\Event;
+use App\Entity\Application\Application;
 use App\Repository\ApplicationRecipientRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;

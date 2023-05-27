@@ -2,7 +2,7 @@
 
 namespace App\Message;
 
-use App\Entity\Application;
+use App\Entity\Application\Application;
 
 class ApplicationSubmitted
 {
