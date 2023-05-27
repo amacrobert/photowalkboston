@@ -1,10 +1,11 @@
+name: Deploy
 on:
   push:
     branches: [main]
 
 jobs:
   deploy:
-    name: Linting, Static Analysis, and Unit Tests
+    name: Prod
     runs-on: ubuntu-latest
 
     steps:
@@ -15,12 +16,13 @@ jobs:
         run: docker-compose up --build -d
 
       - name: Install packages
-        run: docker exec photowalkboston composer install --no-progress --no-interaction --prefer-dist --no-dev
+        run: docker exec photowalkboston bash -c "APP_ENV=prod composer install --no-progress --no-interaction --prefer-dist --no-dev"
 
-      - name: Serverless deploy
-        uses: serverless/github-action@v3.1
-        with:
-          args: deploy
+      - name: Setup serverless framework
+        run: npm i -g serverless@3
+
+      - name: Deploy
+        run: bin/deploy prod
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

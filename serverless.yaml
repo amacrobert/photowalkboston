@@ -8,15 +8,15 @@ provider:
   region: us-east-1
   # The stage of the application, e.g. dev, production, staging… ('dev' is the default)
   stage: dev
-  runtime: provided.al2
-  deploymentMethod: direct
   environment:
     # Symfony environment variables
     APP_ENV: ${opt:stage}
     UPLOADS_BUCKET: !Ref UploadsBucket
     UPLOADS_CLOUDFRONT_URL: !Sub 'https://${UploadsDistribution.DomainName}'
-    ADMIN_USERNAME: ${self:custom.${opt:stage}.credentials.username}
-    ADMIN_PASSWORD: ${self:custom.${opt:stage}.credentials.password}
+    ADMIN_USERNAME: ${self:custom.${opt:stage}.credentials.ADMIN_USERNAME}
+    ADMIN_PASSWORD: ${self:custom.${opt:stage}.credentials.ADMIN_PASSWORD}
+    SMTP_USERNAME: ${self:custom.${opt:stage}.smtp.SMTP_USERNAME}
+    SMTP_PASSWORD: ${self:custom.${opt:stage}.smtp.SMTP_PASSWORD}
   vpc:
     securityGroupIds:
       - ${cf:vpc.LambdaSecurityGroup}
@@ -36,6 +36,11 @@ provider:
             - s3:GetObjectAttributes
             - s3:DeleteObject
             - s3:ListBucket
+        - Effect: Allow
+          Resource: '*'
+          Action:
+            - ses:SendEmail
+            - ses:SendRawEmail
 
 plugins:
   - ./vendor/bref/bref
@@ -48,20 +53,23 @@ custom:
   dev:
     domain: dev.photowalkboston.com
     credentials:
-      username: admin
-      password: 123
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: 123
+    smtp:
+      SMTP_USERNAME: ''
+      SMTP_PASSWORD: ''
 
   prod:
     domain: photowalkboston.com
     credentials: ${ssm:/aws/reference/secretsmanager/prod/photowalkboston/admin-credentials}
+    smtp: ${ssm:/aws/reference/secretsmanager/prod/photowalkboston/mailer-credentials}
 
 functions:
   # This function runs the Symfony website/API
   web:
     handler: public/index.php
+    runtime: php-82-fpm
     timeout: 28 # in seconds (API Gateway has a timeout of 29 seconds)
-    layers:
-      - ${bref:layer.php-82-fpm}
     events:
       - httpApi: '*'
     fileSystemConfig:
@@ -71,10 +79,8 @@ functions:
   # This function let us run console commands in Lambda
   console:
     handler: bin/console
+    runtime: php-82-console
     timeout: 120 # in seconds
-    layers:
-      - ${bref:layer.php-82} # PHP
-      - ${bref:layer.console} # The "console" layer
     fileSystemConfig:
       localMountPath: "/mnt/sqlite"
       arn: ${cf:filesystem-${opt:stage}.FilesystemAccessPointArn}
@@ -90,6 +96,16 @@ constructs:
       '/iconic/*': public/iconic
       '/images/*': public/images
       '/js/*': public/js
+      '/android-chrome-192x192.png': public/android-chrome-192x192.png
+      '/android-chrome-256x256.png': public/android-chrome-256x256.png
+      '/apple-touch-icon.png': public/apple-touch-icon.png
+      '/browserconfig.xml': public/browserconfig.xml
+      '/favicon.ico': public/favicon.ico
+      '/favicon-16x16.png': public/favicon-16x16.png
+      '/favicon-32x32.png': public/favicon-32x32.png
+      '/mstile-150x150.png': public/mstile-150x150.png
+      '/safari-pinned-tab.svg': public/safari-pinned-tab.svg
+      '/site.webmanifest': public/site.webmanifest
 
 package:
   patterns:
@@ -102,7 +118,8 @@ package:
     - '!config/aws/**'
     # If you want to include files and folders that are part of excluded folders,
     # add them at the end
-    - 'var/cache/prod/**'
+    - 'var/build/${opt:stage}/**'
+    - 'var/cache/${opt:stage}/**'
     - 'public/build/entrypoints.json'
     - 'public/build/manifest.json'
 
@@ -153,15 +170,6 @@ resources:
               QueryString: 'false'
               Cookies:
                 Forward: all
-
-    # This enables lambda to talk to the uploads bucket without needing a NAT gateway
-    UploadsBucketS3GatewayEndpoint:
-      Type: AWS::EC2::VPCEndpoint
-      Properties:
-        RouteTableIds:
-          - ${cf:vpc.PublicRouteTable}
-        ServiceName: com.amazonaws.${self:provider.region}.s3
-        VpcId: ${cf:vpc.VpcId}
 
     # Website domain
     Route53Record:

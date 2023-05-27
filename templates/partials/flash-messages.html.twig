@@ -1,0 +1,13 @@
+{% for flash in app.flashes('error') %}
+    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        {{ flash|raw }}
+    </div>
+{% endfor %}
+
+{% for flash in app.flashes('success') %}
+    <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        {{ flash|raw }}
+    </div>
+{% endfor %}

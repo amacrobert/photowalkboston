@@ -4,10 +4,10 @@ sonata_admin:
         blocks:
             - { type: sonata.admin.block.admin_list, position: left }
 
-sonata_block:
-    blocks:
-        sonata.admin.block.admin_list:
-            contexts: [admin]
+#sonata_block:
+#    blocks:
+#        sonata.admin.block.admin_list:
+#            contexts: [admin]
 
 # Admins
 
@@ -16,7 +16,7 @@ services:
         class: App\Admin\EventAdmin
         autowire: true
         tags:
-            - { name: sonata.admin, model_class: App\Entity\Event, manager_type: orm, label: Events, group: Entities }
+            - { name: sonata.admin, model_class: App\Entity\Event, manager_type: orm, label: Events, group: Events }
 
     admin.image:
         class: App\Admin\ImageAdmin
@@ -25,4 +25,14 @@ services:
             $cloudfrontUrl: '%env(UPLOADS_CLOUDFRONT_URL)%'
         autowire: true
         tags:
-            - { name: sonata.admin, model_class: App\Entity\Image, manager_type: orm, label: Images, group: Entities }
+            - { name: sonata.admin, model_class: App\Entity\Image, manager_type: orm, label: Images, group: Events }
+
+    admin.application_recipient:
+        class: App\Admin\ApplicationRecipientAdmin
+        tags:
+            - { name: sonata.admin, model_class: App\Entity\Application\ApplicationRecipient, controller: ~, manager_type: orm, group: Applications, label: Application Recipients }
+
+    admin.application:
+        class: App\Admin\ApplicationAdmin
+        tags:
+            - { name: sonata.admin, model_class: App\Entity\Application\Application, controller: App\Controller\ApplicationAdminController, manager_type: orm, group: Applications, label: Application }

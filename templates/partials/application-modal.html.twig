@@ -1,0 +1,79 @@
+<form method="POST" action="/application">
+    <div class="modal fade" id="applicationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Join Photo Walk Boston</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Thank you for your interest in joining Photo Walk Boston!</p>
+                    <p>Please fill out as much below as you can. Providing more info increases the likelihood of acceptance.</p>
+                    <hr>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="John Doe" minlength="3" required>
+                        <label for="name">Full Name (required)</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="johndoe@examples.com" minlength="5" required>
+                        <label for="email">Email (required)</label>
+                        <div class="form-text">
+                            If accepted, you will be contacted via this email -- so make sure it's right.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <p>
+                            <label for="pursuit">Are you primarily a photographer or model?</label>
+                        </p>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="pursuit" id="pursuit-photographer" value="photographer" required>
+                            <label class="form-check-label" for="pursuit-photographer">Photographer</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="pursuit" id="pursuit-model" value="model" required>
+                            <label class="form-check-label" for="pursuit-model">Model</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="pursuit" id="pursuit-both" value="both" required>
+                            <label class="form-check-label" for="pursuit-both">Both</label>
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="instagram" name="instagram" placeholder="johndoe@example.com">
+                        <label for="instagram">Instagram</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="website" name="website" placeholder="example.com">
+                        <label for="instagram">Website</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="experience" name="experience" placeholder="amateur/professional">
+                        <label for="instagram">Experience level</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="referral" name="referral" placeholder="amateur/professional">
+                        <label for="referral">How (or through whom) did you hear about us?</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="openResponse" class="form-label">Anything else you'd like to share with us?</label>
+                        <textarea class="form-control" id="openResponse" name="openResponse" rows="3"></textarea>
+                    </div>
+
+                    <input type="hidden" name="eventId" value="{{ eventId|default(null) }}">
+                    <input type="hidden" name="dest" value="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" name="application" value="Submit Application">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

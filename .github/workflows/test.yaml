@@ -3,11 +3,8 @@ on:
   pull_request:
     branches: [main]
 
-env:
-  APP_ENV: test
-
 jobs:
-  integration-tests:
+  tests:
     name: Linting, Static Analysis, and Unit Tests
     runs-on: ubuntu-latest
 
@@ -19,7 +16,7 @@ jobs:
         run: docker-compose up --build -d
 
       - name: Install packages
-        run: docker exec photowalkboston composer install --no-progress --no-interaction --prefer-dist
+        run: docker exec photowalkboston bash -c "APP_ENV=test composer install --no-progress --no-interaction --prefer-dist"
 
       - name: Code linting
         run: docker exec photowalkboston composer sniff

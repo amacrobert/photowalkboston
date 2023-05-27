@@ -12,6 +12,7 @@
 {% endblock %}
 
 {% block body %}
+    {% include 'partials/application-modal.html.twig' %}
 
     <div class="event-page--banner" style="background-image: url('{{event.bannerImageUrl}}')">
     </div>
@@ -39,6 +40,8 @@
                         <strong>Password incorrect.</strong> Sorry, that is not the password for this event. See below for instructions on requesting access.
                     </div>
                 {% endif %}
+
+                {% include 'partials/flash-messages.html.twig' %}
 
                 <h3 class="event-page--subtitle">Photo Walk Boston:</h3>
                 <h1 class="event-page--title">{{event.title}}</h1>
@@ -113,33 +116,34 @@
                                     <h5 class="password-protected--title">Password Required</h5>
 
                                     <form method="post">
-                                        <div class="form-row align-items-center">
-                                            <div class="col-auto">
-                                                <input
-                                                    type="text"
-                                                    class="form-control mb-2"
-                                                    id="event_{{ event.id }}_pass"
-                                                    name="event_{{ event.id }}_pass"
-                                                    placeholder="Event Password" />
-                                            </div>
-                                            <div class="col-auto">
-                                                <button type="submit" class="btn btn-secondary mb-2">
-                                                    Submit
-                                                </button>
-                                            </div>
+                                        <div class="input-group mb-3">
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="event_{{ event.id }}_pass"
+                                                name="event_{{ event.id }}_pass"
+                                                placeholder="Event Password" />
+
+                                            <button type="submit" class="btn btn-secondary">
+                                                Submit
+                                            </button>
                                         </div>
                                     </form>
 
                                     <hr>
 
                                     <div class="password-protected--instructions">
-                                        <p>To request the password for this event, email {% include 'partials/apply_email_link.html.twig' %} and include the following information:</p>
-                                        <ul>
-                                            {% for question in applicationQuestions %}
-                                                <li>{{question}}</li>
-                                            {% endfor %}
-                                        </ul>
-                                        <p>If approved, you will be contacted shortly with the password. Then, if you show up in person and put your best foot forward, you'll be invited to join the closed Photo Walk Boston Facebook group and attend any future Photo Walk Boston meetups you like.</p>
+                                        {% if applicationPending %}
+                                            <p><strong>You have already submitted an application to join.</strong></p>
+                                        {% else %}
+                                            <p>To request the password for this event, ask here:</p>
+                                            <p>
+                                                <button type="button" class="btn btn-lg btn-secondary btn-outline-light" style="width: 100%" data-bs-toggle="modal" data-bs-target="#applicationModal">
+                                                    Request the Password
+                                                </button>
+                                            </p>
+                                            <p>If approved, you will be contacted shortly with the password. Then, if you show up in person and put your best foot forward, you'll be invited to join the closed Photo Walk Boston Facebook group and attend any future Photo Walk Boston meetups you like.</p>
+                                        {% endif %}
                                     </div>
 
                                     <div class="password-protected--explanation">
@@ -179,8 +183,8 @@
             </div>
         </div>
 
-        <div class="row mb-5">
-            <div class="col-md-12">
+        <div class="row justify-content-center my-5">
+            <div class="col-md-6">
                 Share this event
                 {% include 'partials/rrssb.html.twig' %}
             </div>
