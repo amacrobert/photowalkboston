@@ -7,7 +7,9 @@ use App\Entity\Application\ApplicationStatus;
 use Doctrine\ORM\EntityManagerInterface;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -15,7 +17,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 final class ApplicationAdminController extends CRUDController
 {
-    public function __construct(private EntityManagerInterface $em)
+    public function __construct(private EntityManagerInterface $em, private RequestStack $requestStack)
     {
     }
 
@@ -43,6 +45,17 @@ final class ApplicationAdminController extends CRUDController
 
         $application->setStatus($status);
         $this->em->flush();
+
+        /** @var Session $session */
+        $session = $this->requestStack->getCurrentRequest()->getSession();
+        $session->getFlashBag()->add(
+            'sonata_flash_success',
+            sprintf(
+                'Application for <strong>%s</strong> has been <strong>%s</strong>.',
+                $application->getName(),
+                $status->value
+            )
+        );
 
         return new RedirectResponse($this->admin->generateUrl('list'));
     }
