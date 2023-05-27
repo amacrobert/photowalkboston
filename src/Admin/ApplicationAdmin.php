@@ -77,16 +77,18 @@ final class ApplicationAdmin extends AbstractAdmin
                     'description' => 'Only edit these to make corrections.'
                 ]
             )
-                ->add('name')
-                ->add('email')
-                ->add('event')
-                ->add('instagram')
-                ->add('pursuit')
-                ->add('referral')
-                ->add('website')
-                ->add('experience')
-                ->add('openResponse')
-            ->end()
+            ->add('name')
+            ->add('email')
+            ->add('event')
+            ->add('instagram')
+            ->add('pursuit')
+            ->add('referral')
+            ->add('website')
+            ->add('experience')
+            ->add('openResponse')
+            ->end();
+
+        $form
             ->with(
                 'Admin',
                 [
@@ -94,16 +96,16 @@ final class ApplicationAdmin extends AbstractAdmin
                     'description' => 'Accepted applicants will receive email invites to future events.'
                 ]
             )
-                ->add(
-                    'status',
-                    ChoiceType::class,
-                    [
-                        'choices' => array_combine(
-                            array_column(ApplicationStatus::cases(), 'name'),
-                            array_column(ApplicationStatus::cases(), 'value')
-                        )
-                    ]
-                )
+            ->add(
+                'status',
+                ChoiceType::class,
+                [
+                    'choices' => array_combine(
+                        array_column(ApplicationStatus::cases(), 'name'),
+                        array_column(ApplicationStatus::cases(), 'value')
+                    )
+                ]
+            )
             ->end();
     }
 
