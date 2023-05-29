@@ -13,6 +13,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollectionInterface;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\Form\Type\DateTimePickerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
@@ -106,6 +107,17 @@ final class ApplicationAdmin extends AbstractAdmin
                     )
                 ]
             )
+            ->add(
+                'subscribed',
+                null,
+                [
+                    'help' => 'If an application is subscribed AND accepted, its email will get event updates. ' .
+                        'You may unsubscribe users, but not resubscribe them.',
+                    'disabled' => !$this->getSubject()->isSubscribed()
+                ]
+            )
+            ->add('created', DateTimePickerType::class, ['disabled' => true])
+            ->add('updated', DateTimePickerType::class, ['disabled' => true])
             ->end();
     }
 

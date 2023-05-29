@@ -43,11 +43,17 @@ class Application
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $openResponse = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $status = 'pending';
+
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
+    private ?bool $subscribed = true;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $created = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $status = 'pending';
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeInterface $updated = null;
 
     public function __toString(): string
     {
@@ -170,7 +176,16 @@ class Application
     #[ORM\PrePersist]
     public function setCreatedToNow(): self
     {
-        return $this->setCreated(new \DateTimeImmutable());
+        $this->setCreated(new \DateTimeImmutable());
+        $this->setUpdatedToNow();
+
+        return $this;
+    }
+
+    #[ORM\PreUpdate]
+    public function setUpdatedToNow(): self
+    {
+        return $this->setUpdated(new \DateTimeImmutable());
     }
 
     public function getStatus(): ?string
@@ -201,6 +216,30 @@ class Application
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function isSubscribed(): ?bool
+    {
+        return $this->subscribed;
+    }
+
+    public function setSubscribed(bool $subscribed): self
+    {
+        $this->subscribed = $subscribed;
+
+        return $this;
+    }
+
+    public function getUpdated(): ?\DateTimeInterface
+    {
+        return $this->updated;
+    }
+
+    public function setUpdated(\DateTimeInterface $updated): self
+    {
+        $this->updated = $updated;
 
         return $this;
     }
