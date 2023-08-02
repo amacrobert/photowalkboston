@@ -58,14 +58,16 @@
     }
 }
 
-
-.event-card--date--month {
+.event-card--date--day-and-month {
     text-align: center;
+    font-size: 24px;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
-.event-card--date--day {
+.event-card--date--day-of-week {
     text-align: center;
-    font-size: 40px;
+    font-size: 12px;
 }
 
 .event-card--date--year {

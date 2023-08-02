@@ -22,6 +22,9 @@ class Image implements \JsonSerializable
     #[ORM\Column(name: 'filename', type: 'string')]
     private $filename;
 
+    #[ORM\Column(name: 'credit', type: 'string', nullable: true)]
+    private $credit;
+
     /**
      * @var \DateTime
      */
@@ -70,6 +73,17 @@ class Image implements \JsonSerializable
     public function setFilename(?string $filename): Image
     {
         $this->filename = $filename;
+        return $this;
+    }
+
+    public function getCredit(): ?string
+    {
+        return $this->credit;
+    }
+
+    public function setCredit(?string $credit): self
+    {
+        $this->credit = $credit;
         return $this;
     }
 

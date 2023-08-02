@@ -10,11 +10,11 @@
                     <div class="event-card--top" style="background-image: url('{{ event.bannerImageUrl }}');">
                         <div class="event-card--top--inner">
                             <div class="event-card--date">
-                                <div class="event-card--date--month">
-                                    {{event.date|date('M')}}
+                                <div class="event-card--date--day-of-week">
+                                    {{event.date|date('l')}}
                                 </div>
-                                <div class="event-card--date--day">
-                                    {{event.date|date('d')}}
+                                <div class="event-card--date--day-and-month">
+                                    {{event.date|date('M d')}}
                                 </div>
                                 <div class="event-card--date--year">
                                     {{event.date|date('Y')}}
