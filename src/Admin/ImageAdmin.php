@@ -38,6 +38,9 @@ class ImageAdmin extends AbstractAdmin
 
         $form
             ->add('file', FileType::class, $file_options)
+            ->add(
+                name: 'credit',
+                options: ['help' => 'Provide photographer and/or model credit for this image'])
         ;
     }
 
@@ -95,6 +98,7 @@ class ImageAdmin extends AbstractAdmin
     {
         $list
             ->add('filename', 'string', ['template' => 'list_image.html.twig'])
+            ->add(ListMapper::NAME_ACTIONS, null, ['actions' => ['edit' => []]])
         ;
     }
 }

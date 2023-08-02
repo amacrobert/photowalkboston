@@ -155,7 +155,7 @@ resources:
       Type: AWS::CloudFront::Distribution
       Properties:
         DistributionConfig:
-          Comment: PWB uploads
+          Comment: PWB ${opt:stage} uploads
           Origins:
             - DomainName: !GetAtt UploadsBucket.RegionalDomainName
               Id: 's3-origin'
