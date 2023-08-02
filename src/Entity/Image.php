@@ -23,7 +23,7 @@ class Image implements \JsonSerializable
     private $filename;
 
     #[ORM\Column(name: 'credit', type: 'string', nullable: true)]
-    private $credit;
+    private ?string $credit;
 
     /**
      * @var \DateTime

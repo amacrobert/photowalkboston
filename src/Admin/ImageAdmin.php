@@ -40,7 +40,8 @@ class ImageAdmin extends AbstractAdmin
             ->add('file', FileType::class, $file_options)
             ->add(
                 name: 'credit',
-                options: ['help' => 'Provide photographer and/or model credit for this image'])
+                options: ['help' => 'Provide photographer and/or model credit for this image']
+            )
         ;
     }
 
