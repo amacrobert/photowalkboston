@@ -99,6 +99,7 @@ class ImageAdmin extends AbstractAdmin
     {
         $list
             ->add('filename', 'string', ['template' => 'list_image.html.twig'])
+            ->add('credit')
             ->add(ListMapper::NAME_ACTIONS, null, ['actions' => ['edit' => []]])
         ;
     }
