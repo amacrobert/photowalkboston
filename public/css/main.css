@@ -58,14 +58,16 @@
     }
 }
 
-
-.event-card--date--month {
+.event-card--date--day-and-month {
     text-align: center;
+    font-size: 24px;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
-.event-card--date--day {
+.event-card--date--day-of-week {
     text-align: center;
-    font-size: 40px;
+    font-size: 12px;
 }
 
 .event-card--date--year {
@@ -75,6 +77,28 @@
 
 .event-card--top--title {
     margin-top: 20px;
+}
+
+.event-card--image-credit {
+    position: absolute;
+    right: 6px;
+    bottom: 0;
+    color: rgba(255, 255, 255, 60%);
+    font-size: 9px;
+    text-transform: uppercase;
+    font-style: italic;
+}
+
+.event-page--banner--image-credit {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 0 3px;
+    color: #FFF;
+    font-size: 9px;
+    text-transform: uppercase;
+    font-style: italic;
+    background-color: rgba(0, 0, 0, 30%)
 }
 
 @media (min-width: 576px) {

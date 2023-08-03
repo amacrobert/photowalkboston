@@ -14,7 +14,8 @@
 {% block body %}
     {% include 'partials/application-modal.html.twig' %}
 
-    <div class="event-page--banner" style="background-image: url('{{event.bannerImageUrl}}')">
+    <div class="event-page--banner" style="background-image: url('{{event.bannerImageUrl}}'); position: relative">
+        <div class="event-page--banner--image-credit">{{ event.bannerImage.credit }}</div>
     </div>
 
     <div class="container">
