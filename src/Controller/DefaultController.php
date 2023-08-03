@@ -16,6 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
+    // The maximum number of events displayed on the home page
+    private const MAX_EVENTS = 5;
     public function __construct(private RequestStack $requestStack)
     {
     }
@@ -33,7 +35,7 @@ class DefaultController extends AbstractController
         $query = $em
             ->createQuery($dql)
             ->setParameters(['cutoff' => new \DateTime('24 hours ago')])
-            ->setMaxResults(3);
+            ->setMaxResults(self::MAX_EVENTS);
         $events = $query->getResult();
 
         return $this->renderWithHostData('index.html.twig', ['events' => $events]);
