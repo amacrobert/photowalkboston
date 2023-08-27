@@ -84,7 +84,7 @@ class Event implements \JsonSerializable
      * @var \App\Entity\Image
      */
     #[ORM\JoinColumn(name: 'banner_image_id', referencedColumnName: 'id')]
-    #[ORM\ManyToOne(targetEntity: 'Image')]
+    #[ORM\ManyToOne(targetEntity: Image::class)]
     private $banner_image;
 
     public function getLink(): string

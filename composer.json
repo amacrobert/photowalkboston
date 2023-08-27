@@ -9,7 +9,7 @@
         "aws/aws-sdk-php-symfony": "^2.6",
         "bref/bref": "^2.0",
         "bref/symfony-bridge": "^0.2.1",
-        "doctrine/dbal": "3.1.5",
+        "doctrine/dbal": "^3.4",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "phpstan/phpstan": "^1.9",
         "sonata-project/admin-bundle": "^4.13",
@@ -89,7 +89,7 @@
     },
     "extra": {
         "symfony": {
-            "require": "6.2.*",
+            "require": "6.3.*",
             "allow-contrib": true,
             "docker": false
         }
