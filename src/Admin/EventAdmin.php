@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\{DatagridMapper, ListMapper};
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\Form\Type\DateTimePickerType;
-use Symfony\Component\Form\Extension\Core\Type\{UrlType};
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 /**
  * @extends AbstractAdmin<Event>
@@ -29,8 +29,14 @@ class EventAdmin extends AbstractAdmin
         $event = $this->getSubject();
         $date_options = [
             'help' => 'The date and meeting time of the event; for 6:30pm, enter 18:30',
-            'dp_minute_stepping' => 15,
-            'dp_use_seconds' => false,
+            'datepicker_options' => [
+                'stepping' => 15,
+                'display' => [
+                    'components' => [
+                        'seconds' => false,
+                    ],
+                ],
+            ],
         ];
 
         if (!$event->getId()) {
