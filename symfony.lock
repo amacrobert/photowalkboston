@@ -17,10 +17,10 @@
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "main",
             "version": "0.1",
-            "ref": "073e577186ef96e4f26df1f8a3dc14a48826d364"
+            "ref": "4b3369f9a34fd355e9e935c9b5e2875256cc4600"
         },
         "files": [
-            "serverless.yml"
+            "serverless.yaml"
         ]
     },
     "doctrine/annotations": {
@@ -51,7 +51,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "2.10",
-            "ref": "e025a6cb69b195970543820b2f18ad21724473fa"
+            "ref": "0db4b12b5df45f5122213b4ecd18733ab7fa7d53"
         },
         "files": [
             "config/packages/doctrine.yaml",
@@ -111,10 +111,10 @@
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "main",
             "version": "1.0",
-            "ref": "d74d4d719d5f53856c9c13544aa22d44144b1819"
+            "ref": "5e490cc197fb6bb1ae22e5abbc531ddc633b6767"
         },
         "files": [
-            "phpstan.neon"
+            "phpstan.dist.neon"
         ]
     },
     "phpunit/phpunit": {
