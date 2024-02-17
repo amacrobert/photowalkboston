@@ -68,7 +68,7 @@ functions:
   # This function runs the Symfony website/API
   web:
     handler: public/index.php
-    runtime: php-82-fpm
+    runtime: php-83-fpm
     timeout: 28 # in seconds (API Gateway has a timeout of 29 seconds)
     events:
       - httpApi: '*'
@@ -79,7 +79,7 @@ functions:
   # This function let us run console commands in Lambda
   console:
     handler: bin/console
-    runtime: php-82-console
+    runtime: php-83-console
     timeout: 120 # in seconds
     fileSystemConfig:
       localMountPath: "/mnt/sqlite"
