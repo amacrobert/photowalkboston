@@ -1,7 +1,7 @@
 FROM bref/php-83-fpm:2
 
 RUN yum install -y git gzip zip unzip tar
-COPY --from=composer:2.6 /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:2.8 /usr/bin/composer /usr/local/bin/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN git config --global --add safe.directory '*'
 

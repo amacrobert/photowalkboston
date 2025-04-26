@@ -24,6 +24,15 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery.1.10.2.min.js"><\/script>')</script>
         <script src="/js/rrssb.min.js"></script>
 
+        {# reCAPTCHA library and callback #}
+        <script src="https://www.google.com/recaptcha/api.js"></script>
+        <script>
+            function onSubmit(token) {
+                document.getElementById("application-form").submit();
+            }
+        </script>
+        {# /reCAPTCHA #}
+
         {% block open_graph %}
             <meta property="og:title" content="Photo Walk Boston" />
             <meta property="og:description" content="A free creative meetup in Boston for photographers and models" />
