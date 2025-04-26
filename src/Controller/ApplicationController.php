@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Service\ApplicationService;
+use App\Service\RecaptchaService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ApplicationController extends AbstractController
 {
@@ -16,14 +18,22 @@ class ApplicationController extends AbstractController
     public function index(
         Request $request,
         ApplicationService $applicationService,
+        RecaptchaService $recaptchaService,
     ): Response {
         $response = new RedirectResponse($request->request->get('dest', '/'));
+
 
         if (!$request->request->has('application')) {
             return $response;
         }
 
         try {
+            // Verify recaptcha
+            $recaptchaResponse = $request->get('g-recaptcha-response');
+            if (!$recaptchaService->verifyRecaptcha($recaptchaResponse)) {
+                throw new \Exception('Blocked by spam filter');
+            }
+
             $application = $applicationService->createApplication($request->request->all());
             $this->addFlash(
                 'success',

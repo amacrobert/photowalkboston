@@ -33,12 +33,12 @@ class ApplicationService
             ->setEvent($event ?? null)
             ->setName($formValues['name'])
             ->setEmail($formValues['email'])
-            ->setPursuit($formValues['pursuit'])
-            ->setInstagram($formValues['instagram'])
-            ->setWebsite($formValues['website'])
-            ->setExperience($formValues['experience'])
-            ->setReferral($formValues['referral'])
-            ->setOpenResponse($formValues['openResponse']);
+            ->setPursuit($formValues['pursuit'] ?? null)
+            ->setInstagram($formValues['instagram'] ?? null)
+            ->setWebsite($formValues['website'] ?? null)
+            ->setExperience($formValues['experience'] ?? null)
+            ->setReferral($formValues['referral'] ?? null)
+            ->setOpenResponse($formValues['openResponse'] ?? null);
 
         $this->em->persist($application);
         $this->em->flush();

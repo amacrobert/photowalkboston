@@ -19,6 +19,7 @@
         "symfony/dotenv": "*",
         "symfony/flex": "^2.0",
         "symfony/framework-bundle": "*",
+        "symfony/http-client": "6.4.*",
         "symfony/messenger": "*",
         "symfony/monolog-bundle": "^3.8",
         "symfony/runtime": "*",
@@ -79,9 +80,9 @@
             "@auto-scripts"
         ],
         "test": "bin/phpunit --testdox",
-        "sniff": "vendor/bin/phpcs",
-        "sniff-fix": "vendor/bin/phpcbf",
-        "stan": "vendor/bin/phpstan",
+        "phpcs": "vendor/bin/phpcs",
+        "phpcbf": "vendor/bin/phpcbf",
+        "phpstan": "vendor/bin/phpstan",
         "migrate": "bin/console doctrine:migrations:migrate --no-interaction"
     },
     "conflict": {

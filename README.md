@@ -5,10 +5,10 @@ A website built for a local Boston creative photography meetup.
 
 ## Setup
 
-- `docker-compose up --build -d`
-- `docker exec -it photowalkboston bash`
+- `docker compose up --build -d`
+- `docker compose exec php bash`
 - `composer install`
-- `symfony serve -d`
+- `symfony serve --allow-all-ip -d`
 - Go to [https://localhost:8081](https://localhost:8081)
 
 ## About

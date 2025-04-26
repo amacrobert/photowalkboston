@@ -1,4 +1,4 @@
-<form method="POST" action="/application">
+<form method="POST" action="/application" id="application-form">
     <div class="modal fade" id="applicationModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -70,8 +70,12 @@
                     <input type="hidden" name="dest" value="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}">
                 </div>
                 <div class="modal-footer">
+                    <input type="hidden" name="application" value="1" />
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" name="application" value="Submit Application">
+                    <button class="btn btn-primary g-recaptcha"
+                        data-sitekey="{{ recaptcha_site_key }}"
+                        data-callback='onSubmit'
+                        data-action='submit'>Submit Application</button>
                 </div>
             </div>
         </div>

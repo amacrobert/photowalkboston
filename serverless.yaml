@@ -17,6 +17,8 @@ provider:
     ADMIN_PASSWORD: ${self:custom.${opt:stage}.credentials.ADMIN_PASSWORD}
     SMTP_USERNAME: ${self:custom.${opt:stage}.smtp.SMTP_USERNAME}
     SMTP_PASSWORD: ${self:custom.${opt:stage}.smtp.SMTP_PASSWORD}
+    GOOGLE_RECAPTCHA_SITE_KEY: ${self.custom.${opt.stage}.recaptcha.GOOGLE_RECAPTCHA_SITE_KEY}
+    GOOGLE_RECAPTCHA_SECRET: ${self.custom.${opt.stage}.recaptcha.GOOGLE_RECAPTCHA_SECRET}
   vpc:
     securityGroupIds:
       - ${cf:vpc.LambdaSecurityGroup}
@@ -58,11 +60,15 @@ custom:
     smtp:
       SMTP_USERNAME: ''
       SMTP_PASSWORD: ''
+    recaptcha:
+      GOOGLE_RECAPTCHA_SITE_KEY: ''
+      GOOGLE_RECAPTCHA_SECRET: ''
 
   prod:
     domain: photowalkboston.com
     credentials: ${ssm:/aws/reference/secretsmanager/prod/photowalkboston/admin-credentials}
     smtp: ${ssm:/aws/reference/secretsmanager/prod/photowalkboston/mailer-credentials}
+    recaptcha: ${ssm:/aws/reference/secretsmanager/prod/photowalkboston/recaptcha-keys}
 
 functions:
   # This function runs the Symfony website/API
