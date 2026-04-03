@@ -1,14 +1,15 @@
-FROM bref/php-83-fpm:2
+FROM bref/php-85
 
-RUN yum install -y git gzip zip unzip tar
+RUN dnf install -y git gzip zip unzip tar
 COPY --from=composer:2.8 /usr/bin/composer /usr/local/bin/composer
+ENV BREF_RUNTIME=fpm
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN git config --global --add safe.directory '*'
 
 # From here on should be separated into a development image
 RUN echo 'alias ll="ls -lAh"' >> /root/.bashrc
 
-COPY --from=bref/extra-pcov-php-82:1 /opt /opt
+#COPY --from=bref/extra-pcov-php-85 /opt /opt
 RUN curl -sS https://get.symfony.com/cli/installer | bash
 ENV PATH /root/.symfony5/bin:$PATH
 RUN symfony server:ca:install

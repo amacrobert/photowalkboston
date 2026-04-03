@@ -8,6 +8,7 @@ A website built for a local Boston creative photography meetup.
 - `docker compose up --build -d`
 - `docker compose exec php bash`
 - `composer install`
+- `bin/console doctrine:migrations:migrate --no-interaction -vv`
 - `symfony serve --allow-all-ip -d`
 - Go to [https://localhost:8081](https://localhost:8081)
 
