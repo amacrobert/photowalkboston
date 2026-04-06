@@ -126,7 +126,6 @@ class DefaultController extends AbstractController
     protected function renderWithHostData(
         string $view,
         array $parameters = [],
-        Response $response = null
     ): Response {
         $parameters['host'] = $this->requestStack->getCurrentRequest()->getSchemeAndHttpHost();
         $parameters['now'] = new \DateTime();
