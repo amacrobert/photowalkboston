@@ -55,13 +55,14 @@ Resources:
       VpcId: !Ref Vpc
 
   # Endpoints for services that require the Internet
-  S3GatewayEndpoint:
-    Type: AWS::EC2::VPCEndpoint
-    Properties:
-      RouteTableIds:
-        - !Ref PublicRouteTable
-      ServiceName: com.amazonaws.us-east-1.s3
-      VpcId: !Ref Vpc
+  # Removed
+  # S3GatewayEndpoint:
+  #   Type: AWS::EC2::VPCEndpoint
+  #   Properties:
+  #     RouteTableIds:
+  #       - !Ref PublicRouteTable
+  #     ServiceName: com.amazonaws.us-east-1.s3
+  #     VpcId: !Ref Vpc
 
 Outputs:
   VpcId:
