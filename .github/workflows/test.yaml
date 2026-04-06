@@ -22,7 +22,7 @@ jobs:
         run: docker exec photowalkboston composer phpcs
 
       - name: Static analysis
-        run: docker exec photowalkboston composer phpstan
+        run: docker exec photowalkboston composer phpstan -- --no-progress
 
       - name: Migrate database
         run: docker exec photowalkboston composer migrate
