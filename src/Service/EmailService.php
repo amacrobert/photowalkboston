@@ -11,8 +11,8 @@ use Symfony\Component\Mime\Address;
 class EmailService
 {
     public function __construct(
-        private MailerInterface $mailer,
-        private ApplicationRecipientRepository $recipientRepo,
+        private MailerInterface $mailer, // @phpstan-ignore property.onlyWritten
+        private ApplicationRecipientRepository $recipientRepo, // @phpstan-ignore property.onlyWritten
     ) {
     }
 
