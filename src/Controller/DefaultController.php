@@ -6,6 +6,7 @@ use App\Entity\Event;
 use App\Service\ApplicationService;
 use App\Service\CalendarService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,18 +42,14 @@ class DefaultController extends AbstractController
         return $this->renderWithHostData('index.html.twig', ['events' => $events]);
     }
 
-    #[Route(path: '/events/{event_id}', name: 'event', methods: ['GET', 'POST'])]
+    #[Route(path: '/events/{id}', name: 'event', methods: ['GET', 'POST'])]
     public function event(
-        string $event_id,
+        #[MapEntity] Event $event,
         EntityManagerInterface $em,
         Request $request,
         CalendarService $calendar_service,
         ApplicationService $applicationService,
     ): Response {
-        if (!$event = $em->find(Event::class, $event_id)) {
-            return new Response(null, 404);
-        }
-
         $password = strtolower($event->getPassword());
         $cookie_name = 'event_' . $event->getId() . '_pass';
         parse_str($request->getContent(), $post_vals);
@@ -88,17 +85,13 @@ class DefaultController extends AbstractController
         return $response;
     }
 
-    #[Route(path: '/ics/{event_id}', name: 'ics', methods: 'GET')]
+    #[Route(path: '/ics/{id}', name: 'ics', methods: 'GET')]
     public function icsDownload(
-        string $event_id,
+        #[MapEntity] Event $event,
         CalendarService $calendar_service,
         EntityManagerInterface $em,
         Request $request
     ): Response {
-        if (!$event = $em->find(Event::class, $event_id)) {
-            return new Response(null, 404);
-        }
-
         $password = strtolower($event->getPassword());
         $cookie_name = 'event_' . $event->getId() . '_pass';
         $cookie_matches_pass = $request->cookies->get($cookie_name) == $password;
