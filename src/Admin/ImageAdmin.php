@@ -16,14 +16,10 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 class ImageAdmin extends AbstractAdmin
 {
     public function __construct(
-        private S3Client $s3Client,
-        private string $uploadsBucket,
-        private string $cloudfrontUrl,
-        ?string $code = null,
-        ?string $class = null,
-        ?string $baseControllerName = null
+        private readonly S3Client $s3Client,
+        private readonly string $uploadsBucket,
+        private readonly string $cloudfrontUrl,
     ) {
-        parent::__construct($code, $class, $baseControllerName);
     }
 
     // Form fields
