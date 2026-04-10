@@ -50,7 +50,7 @@ class DefaultController extends AbstractController
         CalendarService $calendar_service,
         ApplicationService $applicationService,
     ): Response {
-        $password = strtolower($event->getPassword());
+        $password = strtolower($event->getPassword() ?? '');
         $cookie_name = 'event_' . $event->getId() . '_pass';
         parse_str($request->getContent(), $post_vals);
         $posted_pass = isset($post_vals[$cookie_name]) ? strtolower($post_vals[$cookie_name]) : null;
@@ -92,7 +92,7 @@ class DefaultController extends AbstractController
         EntityManagerInterface $em,
         Request $request
     ): Response {
-        $password = strtolower($event->getPassword());
+        $password = strtolower($event->getPassword() ?? '');
         $cookie_name = 'event_' . $event->getId() . '_pass';
         $cookie_matches_pass = $request->cookies->get($cookie_name) == $password;
 
