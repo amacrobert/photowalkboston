@@ -17,8 +17,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 final class ApplicationAdminController extends CRUDController
 {
-    public function __construct(private EntityManagerInterface $em, private RequestStack $requestStack)
-    {
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        private readonly RequestStack $requestStack
+    ) {
     }
 
     public function approveAction(): Response
