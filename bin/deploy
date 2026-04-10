@@ -24,6 +24,7 @@ aws cloudformation deploy \
 # Serverless plugins
 serverless plugin install -n serverless-lift
 serverless plugin install -n serverless-plugin-log-retention
+serverless plugin install -n serverless-prune-plugin
 
 # TODO: Build via Dockerfile and copy build out
 
