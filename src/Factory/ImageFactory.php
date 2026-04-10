@@ -16,6 +16,9 @@ final class ImageFactory extends PersistentObjectFactory
         return Image::class;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     #[\Override]
     protected function defaults(): array
     {
