@@ -91,7 +91,7 @@ class CalendarService
             $request->getSchemeAndHttpHost() .
             $this->url_generator->generate(
                 'ics',
-                ['event_id' => $event->getId()]
+                ['id' => $event->getId()]
             );
 
         return $url;
