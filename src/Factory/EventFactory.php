@@ -16,6 +16,9 @@ final class EventFactory extends PersistentObjectFactory
         return Event::class;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     #[\Override]
     protected function defaults(): array
     {
