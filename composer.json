@@ -38,7 +38,8 @@
         "symfony/maker-bundle": "^1.48",
         "symfony/phpunit-bridge": "^6.2",
         "symfony/stopwatch": "*",
-        "symfony/web-profiler-bundle": "*"
+        "symfony/web-profiler-bundle": "*",
+        "zenstruck/foundry": "^2.9"
     },
     "config": {
         "preferred-install": {
