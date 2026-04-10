@@ -48,9 +48,14 @@ plugins:
   - ./vendor/bref/bref
   - serverless-lift
   - serverless-plugin-log-retention
+  - serverless-prune-plugin
 
 custom:
   logRetentionInDays: 30
+  prune:
+    automatic: true
+    includeLayers: true
+    number: 5
   hostedZoneId: ${ssm:/route53/photowalkboston/hostedZoneId}
   dev:
     domain: dev.photowalkboston.com
